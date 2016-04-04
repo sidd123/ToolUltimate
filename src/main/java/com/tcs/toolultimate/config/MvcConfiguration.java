@@ -59,6 +59,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
 		List<MongoCredential> credentials = new ArrayList<MongoCredential>();
 		credentials.add(MongoCredential.createCredential(mongoUser, mongodbDB, mongoPassword.toCharArray()));
 		MongoClient client = new MongoClient(address,credentials);
+		
 		MongoTemplate mongoTemplate = new MongoTemplate(new SimpleMongoDbFactory(client, mongodbDB));
 		
 		return mongoTemplate;
