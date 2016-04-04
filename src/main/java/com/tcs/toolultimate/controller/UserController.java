@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tcs.toolultimate.service.employee.EmployeeService;
 import com.tcs.toolultimate.vo.Employee;
+import com.tcs.toolultimate.vo.UserLogin;
 
 @Controller
 public class UserController {
@@ -29,13 +30,14 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)	
-	public @ResponseBody Map doLogin(@RequestBody Employee customer) throws IOException{
+	public @ResponseBody Map doLogin(@RequestBody UserLogin user) throws IOException{
 		
 		System.out.println("test");
 		Map result = new HashMap();
 		result.put("status", "success");
-		result.put("name", customer.getUsername());
+		result.put("name", user.getUsername());
 		result.put("email", "test@gmail.com");
+		employeeService.saveEmployee(new Employee());
 		return result;
 	}
 	
