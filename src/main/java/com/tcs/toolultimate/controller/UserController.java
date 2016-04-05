@@ -2,10 +2,14 @@ package com.tcs.toolultimate.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.net.ssl.SSLEngineResult.Status;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,21 +28,23 @@ public class UserController {
 	@Autowired
 	EmployeeService employeeService;
 	
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 	@RequestMapping(value="/")
 	public ModelAndView test(HttpServletResponse response) throws IOException{
 		return new ModelAndView("index");
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)	
-	public @ResponseBody Map doLogin(@RequestBody UserLogin user) throws IOException{
-		
-		System.out.println("test");
-		Map result = new HashMap();
-		result.put("status", "success");
-		result.put("name", user.getUsername());
-		result.put("email", "test@gmail.com");
-		employeeService.saveEmployee(new Employee());
-		return result;
+	public @ResponseBody Map<String, Object> doLogin(@RequestBody UserLogin user) throws IOException{
+		logger.debug("username: " + user.getUsername());
+		logger.debug("password: " + user.getPassword());
+		List<Employee> fetchUserByCredentials = employeeService.fetchUserByCredentials(user);
+		Map<String, Object> fetchedUserDetails = new HashMap<String, Object>();
+		fetchedUserDetails.put("status", fetchUserByCredentials.size() > 0 ? "success" : "fail");
+		fetchedUserDetails.put("userDetails", fetchUserByCredentials);
+		logger.debug("status: " + (fetchUserByCredentials.size() > 0 ? "success" : "fail"));
+		return fetchedUserDetails;
 	}
 	
 	
