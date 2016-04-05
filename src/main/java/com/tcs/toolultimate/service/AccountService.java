@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import com.tcs.toolultimate.config.Constants;
 import com.tcs.toolultimate.vo.Account;
 
 @Service("AccountService")
@@ -72,7 +73,8 @@ public class AccountService {
 	 */
 	public List<Account> acountsSorting(String sortingOrder, String sortingField) {
 		Query query = new Query();
-		Order order = new Order(sortingOrder == "ASC" ? Direction.ASC : Direction.DESC, sortingField);
+		Order order = new Order(sortingOrder == "ASC" ? Direction.ASC
+				: Direction.DESC, sortingField);
 		Sort sort = new Sort(order.ignoreCase());
 		query.with(sort);
 		List<Account> accounts = mongoTemplate.findAll(Account.class);
@@ -86,8 +88,12 @@ public class AccountService {
 	 */
 	public void deleteAcount(Account account) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("account_name").is(account.getAccount_name())
-				.andOperator(Criteria.where("account_id").is(account.getAccount_id())));
+		query.addCriteria(Criteria
+				.where(Constants.COLUMN_NAME_ACCOUNT_NAME)
+				.is(account.getAccount_name())
+				.andOperator(
+						Criteria.where(Constants.COLUMN_NAME_ACCOUNT_ID).is(
+								account.getAccount_id())));
 		mongoTemplate.remove(query);
 	}
 

@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import com.tcs.toolultimate.config.Constants;
 import com.tcs.toolultimate.vo.Employee;
 import com.tcs.toolultimate.vo.UserLogin;
 
@@ -32,10 +33,11 @@ public class EmployeeService {
 	public List<Employee> fetchUserByCredentials(UserLogin userLogin) {
 		Query query = new Query();
 		query.addCriteria(Criteria
-				.where("username")
+				.where(Constants.COLUMN_NAME_USERNAME)
 				.is(userLogin.getUsername())
 				.andOperator(
-						Criteria.where("password").is(userLogin.getPassword())));
+						Criteria.where(Constants.COLUMN_NAME_PASSWORD).is(
+								userLogin.getPassword())));
 		List<Employee> employees = mongoTemplate.find(query, Employee.class);
 		return employees;
 	}
