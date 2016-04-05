@@ -1,4 +1,4 @@
-package com.tcs.toolultimate.service.employee;
+package com.tcs.toolultimate.service;
 
 import java.util.List;
 

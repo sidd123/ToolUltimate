@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tcs.toolultimate.service.employee.EmployeeService;
+import com.tcs.toolultimate.service.EmployeeService;
 import com.tcs.toolultimate.vo.Employee;
 import com.tcs.toolultimate.vo.UserLogin;
 
