@@ -25,6 +25,9 @@
 		<script src="resources/js/angular-route.min.js"></script>
 		<script src="resources/js/angular-animate.min.js" ></script>
 		<script src="resources/js/toaster.js"></script>
+		<script src="resources/js/jquery-2.2.2.js"></script>
+		<script src="resources/js/jquery.dataTables.min.js"></script>
+		<script src="resources/js/dataTables.bootstrap.min.js"></script>
 		<script src="resources/js/app/app.js"></script>
 		<script src="resources/js/app/data.js"></script>
 		<script src="resources/js/app/directives.js"></script>
