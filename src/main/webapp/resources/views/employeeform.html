@@ -1,14 +1,86 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <a href="#">Home</a>
+        </li>
+        <li class="active">SignUp</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="row">
+        <div class="space-6"></div>
+        <div class="col-sm-6 col-sm-offset-1">
+            <div id="login-box" class="login-box visible widget-box no-border">
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <h4 class="header blue lighter bigger">
+                           Add Employee
+                        </h4>
+                        <br/>
+                        <form name="employeeForm" class="form-horizontal" role="form">
+                        	 <div class="form-group">
+                                <label class="col-sm-5 control-label no-padding-right" for="name">Name</label>
+                                <div class="col-sm-7">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" class="form-control" placeholder="Name" name="name" ng-model="employee.name" focus/>
+                                        <span ng-show="employeeForm.name.$error.name" class="help-inline">Name is not valid</span> 
+                                    </span>
+                                </div>
+                            </div>
+                           
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label no-padding-right" for="email">Email</label>
+                                <div class="col-sm-7">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" class="form-control" placeholder="Email" name="email" ng-model="employee.email" focus/>
+                                        <span ng-show="signupForm.email.$error.email" class="help-inline">Email is not valid</span> 
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label no-padding-right" for="mobile">Mobile Number</label>
+                                <div class="col-sm-7">
+                                    <span class="block input-icon input-icon-right">
+										<input type="password" class="form-control" name = "mobile" placeholder="mobile" ng-model="employee.mobile" required/>
+										<small class="errorMessage" data-ng-show="signupForm.mobile.$dirty && signupForm.mobile.$invalid"> Enter Mobile.</small>
+									</span>
+                                </div>
+                            </div>
+                           
+                            
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label no-padding-right" for="phone">Phone</label>
+                                <div class="col-sm-7">
+                                    <span class="block input-icon input-icon-right">
+										<input type="text" class="form-control" placeholder="Phone" name="phone" ng-model="employee.phone"/>
+									</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label no-padding-right" for="address">Address</label>
+                                <div class="col-sm-7">
+                                    <span class="block input-icon input-icon-right">
+										<input type="text" class="form-control" placeholder="Address" ng-model="employee.address" />
+									</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span class="lbl col-sm-5"> </span>
+                                <div class="col-sm-7">
+                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" ng-click="signUp(signup)" data-ng-disabled="signupForm.$invalid">
+                                        Sign Up
+                                    </button>
+                                </div>
+                            </div>
+                            <span class="lbl col-sm-5"> </span>
+                            <div class="col-sm-7">Already have an account? <a href="#/login">SignIn</a></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Home</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-        <p>This is the homepage!</p>
-    </body>
-</html>
+        </div>
+    </div>
+</div>
+<!-- /.page-content -->

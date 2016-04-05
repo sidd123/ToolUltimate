@@ -29,6 +29,12 @@ app.config(['$routeProvider',
                 controller: 'authCtrl',
                 role: '0'
             })
+            
+            .when('/employeeform', {
+                title: 'Employee',
+                templateUrl: 'resources/views/employeeform.html',
+                controller: 'authCtrl'
+            })
             .otherwise({
                 redirectTo: '/login'
             });
