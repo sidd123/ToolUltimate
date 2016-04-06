@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +27,17 @@ import com.tcs.toolultimate.vo.Employee;
 import com.tcs.toolultimate.vo.UserLogin;
 
 @Controller
+@PropertySource({"classpath:app.properties"})
 public class UserController {
     
 	@Autowired
 	EmployeeService employeeService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	
+	@Value("${toolultimate.default.password.appender}")
+	private String defaultPasswordappender;
+	
 	
 	@RequestMapping(value="/")
 	public ModelAndView test(HttpServletResponse response) throws IOException{
@@ -48,8 +57,26 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value="/addEmployee")
-	public ModelAndView addEmployee() throws IOException{
-		return new ModelAndView("emloyeeform");
+	@RequestMapping(value="/saveemployee",method=RequestMethod.POST)	
+	public @ResponseBody Map saveEmployee(@RequestBody Employee empl) throws IOException{
+		empl.setUsername(empl.getEmployeeId());
+		empl.setPassword(getDefaultPassword(empl.getEmployeeId()));
+		employeeService.saveEmployee(empl);
+
+		Map result = new HashMap();
+		result.put("status", "success");
+		return result;
+	}
+	
+	private String getDefaultPassword(String EmployeeId){
+		StringBuilder password = new StringBuilder(EmployeeId);
+		password.append(defaultPasswordappender);
+		return password.toString();
+	}
+	
+
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+		return new PropertySourcesPlaceholderConfigurer();
 	}
 }

@@ -19,8 +19,7 @@ public class EmployeeService {
 	MongoTemplate mongoTemplate;
 
 	public void saveEmployee(Employee emp) {
-		List<Employee> findAll = mongoTemplate.findAll(Employee.class);
-		System.out.println(findAll.get(0).getUsername());
+		mongoTemplate.save(emp);
 	}
 
 	/**
