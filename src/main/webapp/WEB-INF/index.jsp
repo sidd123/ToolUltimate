@@ -5,7 +5,6 @@
 		
 		<title>{{title}}</title>
 		<!-- Bootstrap -->
-		<link href="resources/css/bootstrap.min.css" rel="stylesheet">
 		<link href="resources/css/custom.css" rel="stylesheet">
 		<link href="resources/css/toaster.css" rel="stylesheet">
 			<!-- Google Webfonts -->
@@ -27,6 +26,7 @@
 		<link rel="stylesheet" href="resources/css/salvattore.css">
 		<!-- Theme Style -->
 		<link rel="stylesheet" href="resources/css/style.css">
+		<link href="resources/css/bootstrap.min.css" rel="stylesheet">
 		<!-- Modernizr JS -->
 		<script src="resources/js/modernizr-2.6.2.min.js"></script>
 		<!-- FOR IE9 below -->

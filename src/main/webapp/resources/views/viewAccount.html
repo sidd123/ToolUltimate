@@ -2,9 +2,34 @@
 <div id="fh5co-features" data-section="design">
 	<div class="container">
 		<div class="row">
-			<a href="#/addAccount" class="btn btn-primary btn-sm">
-				<span class="glyphicon glyphicon-plus"></span> Create New Account
-			</a>
+			<div class="tool"
+				style="border: 1px solid; border-color: skyblue; height: 40px;">
+				<a href="#" style="margin-top: 2px; margin-left: 5px;"
+					class="btn btn-default"><span
+					class="glyphicon glyphicon-th-list"></span> List</a> <a href="#"
+					style="margin-top: 2px;" class="btn btn-default"><span
+					class="glyphicon glyphicon-plus"></span> New</a>
+
+				<div class="btn-group">
+					<a data-toggle="dropdown" class="glyphicon glyphicon-list btn btn-default dropdown-toggle">
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>
+								Edit</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-share"></span>
+								Share</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-print"></span>
+								Print</a></li>
+						<li class="divider"></li>
+						<li><a href="#"><span class="glyphicon glyphicon-trash"></span>
+								Delete</a></li>
+					</ul>
+				</div>
+
+
+			</div>
+			<br>
 			<table id="accounts" class="table table-striped table-bordered"
 				cellspacing="0" width="100%">
 				<thead>
@@ -29,7 +54,9 @@
 						<td>{{account.accountName}}</td>
 						<td>{{account.createdBy}}</td>
 						<td>{{account.createdOn}}</td>
-						<td><a href="#" class="btn btn-success btn-xs" ng-click="editAccount(account)"><span class="glyphicon glyphicon-edit"></span> Edit</a></td>
+						<td><a href="#" class="btn btn-success btn-xs"
+							ng-click="editAccount(account)"><span
+								class="glyphicon glyphicon-edit"></span> Edit</a></td>
 					</tr>
 				</tbody>
 			</table>

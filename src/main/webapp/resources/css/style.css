@@ -8283,8 +8283,6 @@ pre {
 /* Buttons */
 .btn {
   font-family: "Montserrat", arial, sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 4px;
   margin-bottom: 20px;
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
@@ -8954,5 +8952,16 @@ a > img.fh5co-align-center {
   margin-left: auto;
   margin-right: auto;
 }
-
+.btn.btn-default {
+    color: #333333;
+    background-color: #FFFFFF;
+    background-image: linear-gradient(to bottom, #FFFFFF, #ffffff);
+    border-color: #ffffff #ffffff #ffffff;
+}
+.btn.btn-default:hover {
+    color: #333333;
+    background-color: #ffffff;
+    background-image: linear-gradient(to bottom, #ffffff, #ffffff);
+    border-color: #ffffff #ffffff #ffffff;
+}
 /*# sourceMappingURL=style.css.map */
