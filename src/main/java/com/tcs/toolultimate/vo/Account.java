@@ -10,6 +10,8 @@ public class Account {
 	private String id;
 	private String accountId;
 	private String accountName;
+	
+	//Getter
 	public String getId() {
 		return id;
 	}
