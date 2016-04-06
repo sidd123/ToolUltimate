@@ -8,10 +8,11 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
                      $rootScope.authenticated = true;
                      $rootScope.uid = results.uid;
                      $rootScope.name = results.name;
-                     $rootScope.email = results.email;
-                 } 
-            	$location.path('viewAccount');
+                     $rootScope.email = results.email;                     
+                 }            	
             }
+            $('#accounts').DataTable();
+        	$location.path('viewAccount');
         });
     };    
 });

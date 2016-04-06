@@ -80,10 +80,5 @@
 	<body class="scrolled">
 		<div data-ng-view="" id="ng-view" class="slide-animation"></div>
 	</body>	
-	<script>
-$(document).ready(function() {
-    $('#accounts').DataTable();
-} );
-</script>
 </html>
 
