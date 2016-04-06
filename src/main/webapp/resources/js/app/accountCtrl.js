@@ -11,8 +11,8 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
         });
     };    
     
-    $scope.addAccount = function () {
-        Data.post('addAccount').then(function (results) {
+    $scope.saveAccount = function (account) {
+        Data.post('saveAccount', account).then(function (results) {
             Data.toast(results);
             if (results.status == "success") {
             	$scope.accounts=results.details;

@@ -27,4 +27,14 @@ public class AccountController {
 		accountDetails.put(Constants.DETAILS, fetchAllAcounts);
 		return accountDetails;
 	}
+	
+	@RequestMapping(value="/saveAccount")
+	public @ResponseBody Map<String, Object> saveAccount(Account account){
+		accountService.saveOrUpdateAccount(account);
+		List<Account> fetchAllAcounts = accountService.fetchAllAcounts();
+		Map<String, Object> accountDetails = new HashMap<String, Object>();
+		accountDetails.put(Constants.STATUS, fetchAllAcounts.size() > 0 ? Constants.SUCCESS : Constants.FAIL);
+		accountDetails.put(Constants.DETAILS, fetchAllAcounts);
+		return accountDetails;
+	}
 }
