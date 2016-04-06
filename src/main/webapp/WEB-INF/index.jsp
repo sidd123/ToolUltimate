@@ -56,6 +56,7 @@
 		<script src="resources/js/app/data.js"></script>
 		<script src="resources/js/app/directives.js"></script>
 		<script src="resources/js/app/authCtrl.js"></script>
+		<script src="resources/js/app/accountCtrl.js"></script>
 		<!-- jQuery -->
 		<script src="resources/js/jquery.min.js"></script>
 		<!-- jQuery Easing -->

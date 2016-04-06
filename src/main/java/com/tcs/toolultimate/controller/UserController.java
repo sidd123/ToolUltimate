@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.net.ssl.SSLEngineResult.Status;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tcs.toolultimate.config.Constants;
 import com.tcs.toolultimate.service.EmployeeService;
 import com.tcs.toolultimate.vo.Employee;
 import com.tcs.toolultimate.vo.UserLogin;
@@ -41,9 +41,9 @@ public class UserController {
 		logger.debug("password: " + user.getPassword());
 		List<Employee> fetchUserByCredentials = employeeService.fetchUserByCredentials(user);
 		Map<String, Object> fetchedUserDetails = new HashMap<String, Object>();
-		fetchedUserDetails.put("status", fetchUserByCredentials.size() > 0 ? "success" : "fail");
-		fetchedUserDetails.put("userDetails", fetchUserByCredentials);
-		logger.debug("status: " + (fetchUserByCredentials.size() > 0 ? "success" : "fail"));
+		fetchedUserDetails.put(Constants.STATUS, fetchUserByCredentials.size() == 0 ? Constants.SUCCESS : Constants.FAIL);
+		fetchedUserDetails.put(Constants.DETAILS, fetchUserByCredentials);
+		logger.debug("total records found: " + fetchUserByCredentials.size());
 		return fetchedUserDetails;
 	}
 	

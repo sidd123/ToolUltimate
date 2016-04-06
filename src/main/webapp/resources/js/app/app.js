@@ -25,7 +25,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/viewAccount', {
 		title : 'Employee',
 		templateUrl : 'resources/views/viewAccount.html',
-		controller : 'authCtrl'
+		controller : 'accountCtrl'
 	}).when('/employeeform', {
 		title : 'Employee',
 		templateUrl : 'resources/views/employeeform.html',
