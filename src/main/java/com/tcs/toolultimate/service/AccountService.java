@@ -90,10 +90,10 @@ public class AccountService {
 		Query query = new Query();
 		query.addCriteria(Criteria
 				.where(Constants.COLUMN_NAME_ACCOUNT_NAME)
-				.is(account.getAccount_name())
+				.is(account.getAccountName())
 				.andOperator(
 						Criteria.where(Constants.COLUMN_NAME_ACCOUNT_ID).is(
-								account.getAccount_id())));
+								account.getAccountId())));
 		mongoTemplate.remove(query);
 	}
 

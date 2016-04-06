@@ -23,7 +23,7 @@ public class AccountController {
 	public @ResponseBody Map<String, Object> viewAccounts(){
 		List<Account> fetchAllAcounts = accountService.fetchAllAcounts();
 		Map<String, Object> accountDetails = new HashMap<String, Object>();
-		accountDetails.put(Constants.STATUS, accountDetails.size() > 0 ? Constants.SUCCESS : Constants.FAIL);
+		accountDetails.put(Constants.STATUS, fetchAllAcounts.size() > 0 ? Constants.SUCCESS : Constants.FAIL);
 		accountDetails.put(Constants.DETAILS, fetchAllAcounts);
 		return accountDetails;
 	}

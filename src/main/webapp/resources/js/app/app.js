@@ -2,32 +2,36 @@ var app = angular.module('myApp', [ 'ngRoute', 'ngAnimate', 'toaster' ]);
 
 app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/login', {
-		title : 'Login',
+		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/login.html',
 		controller : 'authCtrl'
 	}).when('/logout', {
-		title : 'Logout',
+		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/login.html',
 		controller : 'logoutCtrl'
 	}).when('/signup', {
-		title : 'Signup',
+		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/signup.html',
 		controller : 'authCtrl'
 	}).when('/dashboard', {
-		title : 'Dashboard',
+		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/dashboard.html',
 		controller : 'authCtrl'
 	}).when('/', {
-		title : 'Login',
+		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/login.html',
 		controller : 'authCtrl',
 		role : '0'
 	}).when('/viewAccount', {
-		title : 'Employee',
+		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/viewAccount.html',
 		controller : 'accountCtrl'
+	}).when('/addAccount', {
+		title : 'Tool Ultimate',
+		templateUrl : 'resources/views/addEditAccount.html',
+		controller : 'accountCtrl'
 	}).when('/employeeform', {
-		title : 'Employee',
+		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/employeeform.html',
 		controller : 'authCtrl'
 	}).otherwise({

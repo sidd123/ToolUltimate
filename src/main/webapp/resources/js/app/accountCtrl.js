@@ -4,12 +4,18 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
         Data.post('viewAccount').then(function (results) {
             Data.toast(results);
             if (results.status == "success") {
-            	 if (results.name) {
-                     $rootScope.authenticated = true;
-                     $rootScope.uid = results.uid;
-                     $rootScope.name = results.name;
-                     $rootScope.email = results.email;                     
-                 }            	
+            	$scope.accounts=results.details;
+            }
+            $('#accounts').DataTable();
+        	$location.path('viewAccount');
+        });
+    };    
+    
+    $scope.addAccount = function () {
+        Data.post('addAccount').then(function (results) {
+            Data.toast(results);
+            if (results.status == "success") {
+            	$scope.accounts=results.details;
             }
             $('#accounts').DataTable();
         	$location.path('viewAccount');

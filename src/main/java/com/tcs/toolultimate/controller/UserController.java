@@ -50,7 +50,7 @@ public class UserController {
 		logger.debug("password: " + user.getPassword());
 		List<Employee> fetchUserByCredentials = employeeService.fetchUserByCredentials(user);
 		Map<String, Object> fetchedUserDetails = new HashMap<String, Object>();
-		fetchedUserDetails.put(Constants.STATUS, fetchUserByCredentials.size() == 0 ? Constants.SUCCESS : Constants.FAIL);
+		fetchedUserDetails.put(Constants.STATUS, fetchUserByCredentials.size() > 0 ? Constants.SUCCESS : Constants.FAIL);
 		fetchedUserDetails.put(Constants.DETAILS, fetchUserByCredentials);
 		logger.debug("total records found: " + fetchUserByCredentials.size());
 		return fetchedUserDetails;
