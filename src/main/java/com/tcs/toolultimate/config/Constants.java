@@ -9,4 +9,5 @@ public class Constants {
 	public static final String SUCCESS = "success";
 	public static final String FAIL = "fail";
 	public static final String DETAILS = "details";
+	public static final String TOTAL_RECORDS = "totalRecords";
 }

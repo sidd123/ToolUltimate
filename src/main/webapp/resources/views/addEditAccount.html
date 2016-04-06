@@ -2,11 +2,11 @@
 <div id="fh5co-features" data-section="design">
 	<div class="container">
 		<div class="row">
-			<form class="form-horizontal">
+			<form class="form-horizontal" name="accountForm">
 				<fieldset>
 
 					<!-- Form Name -->
-					<legend>account</legend>
+					<legend>Account</legend>
 
 					<!-- Text input-->
 					<div class="form-group">
@@ -15,7 +15,7 @@
 						<div class="col-md-4">
 							<input id="AccountId" name="AccountId" type="text"
 								placeholder="Account Id" class="form-control input-md"
-								required="" ng-model="account.accountId"> <span class="help-block">Type your
+								required ng-model="account.accountId"> <span class="help-block">Type your
 								account id like MHE0001</span>
 						</div>
 					</div>
@@ -27,16 +27,18 @@
 						<div class="col-md-4">
 							<input id="accountName" name="accountName" type="text"
 								placeholder="Account Name" class="form-control input-md"
-								required="" ng-model="account.accountName"> <span class="help-block">Type your
+								required ng-model="account.accountName"> <span class="help-block">Type your
 								account name like MHE</span>
 						</div>
 					</div>
-
+					
 					<!-- Button -->
 					<div class="form-group">
-						<a href="#" class="btn btn-success btn-lg" ng-click="saveAccount(account)"><span class="glyphicon glyphicon-edit"></span> Save</a>
+					  <label class="col-md-4 control-label" for="save"></label>
+					  <div class="col-md-4">
+					    <a href="#" class="btn btn-success btn-lg" ng-click="saveAccount(account)" data-ng-disabled="accountForm.$invalid"><span class="glyphicon glyphicon-edit"></span> Save</a>
+					  </div>
 					</div>
-
 				</fieldset>
 			</form>
 

@@ -6,12 +6,7 @@ app.controller('authCtrl', function ($scope, $rootScope, $routeParams, $location
         Data.post('login',user).then(function (results) {
             Data.toast(results);
             if (results.status == "success") {
-            	 if (results.name) {
-                     $rootScope.authenticated = true;
-                     $rootScope.uid = results.uid;
-                     $rootScope.name = results.name;
-                     $rootScope.email = results.email;
-                 } 
+            	$rootScope.loggedInUser=results.details;
             	$location.path('dashboard');
             }
         });
