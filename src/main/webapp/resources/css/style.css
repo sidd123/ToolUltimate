@@ -7492,7 +7492,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 10px 4px;
   border-bottom: 1px solid #eaeaea;
   font-size: 18px;
-  color: #444;
+  color: #fff;
 }
 #fh5co-offcanvass ul li a:hover, #fh5co-offcanvass ul li a:focus, #fh5co-offcanvass ul li a:active {
   outline: none;
@@ -8411,13 +8411,14 @@ pre {
 }
 
 #fh5co-footer {
-  padding: 10em 0;
+  padding: 0;
   background: #323a45;
   color: #878c93;
   position: fixed;
   bottom: 0;
   font-family: 'Open Sans', Arial, sans-serif;
   font-weight: 300;
+  text-align:center;
 }
 #fh5co-footer .fh5co-overlay {
   position: absolute;
@@ -8434,7 +8435,7 @@ pre {
   z-index: 9;
 }
 #fh5co-footer .container .row > div {
-  margin-bottom: 30px;
+  margin-bottom: 0px;
 }
 @media screen and (max-width: 992px) {
   #fh5co-footer {
