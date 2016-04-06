@@ -61,8 +61,35 @@ public class AccountService {
 	 * @return List of accounts
 	 */
 	public List<Account> fetchAllAcounts() {
-		List<Account> accounts = mongoTemplate.findAll(Account.class);
+		Class<Account> objectType = Account.class;
+		List<Account> accounts = fetchDistinctRecords("ACCOUNT",objectType);
+		
 		return accounts;
+	}
+	
+	private <T> List<T> fetchDistinctRecords(String collectionName, Class<T> recordObjectType) {
+		for(Field field : recordObjectType.getDeclaredFields()){
+			System.out.println(field.getName());
+		}
+		
+		List<T> recordObjects = null;
+		try {
+		    ObjectMapper obmap = new ObjectMapper();
+		    T recordObject = obmap.readValue("", recordObjectType);
+		    recordObjects = new ArrayList<T>();
+		    recordObjects.add(recordObject);
+		    
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return recordObjects;
 	}
 
 	/**
