@@ -1,5 +1,8 @@
 package com.tcs.toolultimate.service;
 
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,9 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tcs.toolultimate.config.Constants;
 import com.tcs.toolultimate.dao.common.BaseDAO;
 import com.tcs.toolultimate.vo.Account;
@@ -71,31 +77,7 @@ public class AccountService {
 		return accounts;
 	}
 	
-	private <T> List<T> fetchDistinctRecords(String collectionName, Class<T> recordObjectType) {
-		for(Field field : recordObjectType.getDeclaredFields()){
-			System.out.println(field.getName());
-		}
-		
-		List<T> recordObjects = null;
-		try {
-		    ObjectMapper obmap = new ObjectMapper();
-		    T recordObject = obmap.readValue("", recordObjectType);
-		    recordObjects = new ArrayList<T>();
-		    recordObjects.add(recordObject);
-		    
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return recordObjects;
-	}
-	
+
 	
 	/**
 	 * 
