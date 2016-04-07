@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.tcs.toolultimate.config.Constants;
 import com.tcs.toolultimate.dao.common.BaseDAO;
 import com.tcs.toolultimate.vo.Account;
+import com.tcs.toolultimate.vo.SubProjects;
 
 @Service("AccountService")
 public class AccountService {
@@ -71,6 +72,16 @@ public class AccountService {
 		return accounts;
 	}
 	
+	/**
+	 * 
+	 * @return List of accounts
+	 */
+	public List<SubProjects> fetchAllSubProjects() {
+		Class<SubProjects> objectType = SubProjects.class;
+		List<SubProjects> subProjects = baseDAO.fetchDistinctRecords("ACCOUNT",objectType);
+		
+		return subProjects;
+	}
 
 	
 	/**

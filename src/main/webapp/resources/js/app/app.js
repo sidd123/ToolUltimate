@@ -34,15 +34,10 @@ app.config([ '$routeProvider', function($routeProvider) {
 		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/employeeform.html',
 		controller : 'authCtrl'
-<<<<<<< Upstream, based on origin/master
-=======
-	}).when('/subprojectform', {
+	}).when('/viewSubProject',{
 		title : 'Tool Ultimate',
-		templateUrl : 'resources/views/subprojectform.html',
-		controller : 'authCtrl'
-	}).otherwise({
-		redirectTo : '/login'
->>>>>>> 297828c Vo update
+		templateUrl : 'resources/views/viewSubProject.html',
+		controller : 'accountCtrl'
 	});
 } ]).run(
 		[

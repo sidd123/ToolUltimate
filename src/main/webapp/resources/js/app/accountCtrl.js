@@ -31,4 +31,15 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
             $location.path('addAccount');
         });
     };
+    
+    $scope.viewSubProject = function(){
+    	Data.post('viewSubProject').then(function (results) {
+            Data.toast(results);
+            if (results.status == "success") {
+            	$rootScope.subProjectTable=results.details;
+            }
+            $('#subProjectTable').DataTable();
+        	$location.path('viewSubProject');
+        });
+    };
 });

@@ -1,0 +1,55 @@
+<div ng-include="'resources/views/menu.html'"></div>
+<div id="fh5co-features" data-section="design">
+   <div class="container">
+      <div class="row">
+         <legend>All Sub Projects</legend>
+         <div ng-include="'resources/views/accountTool.html'"></div>
+         <table id="subProjectTable" class="table table-striped table-bordered"
+            cellspacing="0" width="100%">
+            <thead>
+               <tr>
+                  <th>Account Id</th>
+                  <th>Account Name</th>
+                  <th>Umbrella Project Id</th>
+                  <th>Umbrella Project Name</th>
+                  <th>Project Id</th>
+                  <th>Project Name</th>
+                  <th>Sub Project Id</th>
+                  <th>Sub Project Name</th>
+                  <th>Created By</th>
+                  <th>Created On</th>
+                  <th>Action</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="subProject in subProjectTable">
+                  <td>{{subProject.accountId}}</td>
+                  <td>{{subProject.accountName}}</td>
+                  <td>{{subProject.umbrellaProjectId}}</td>
+                  <td>{{subProject.umbrellaProjectName}}</td>
+                  <td>{{subProject.projectId}}</td>
+                  <td>{{subProject.projectName}}</td>
+                  <td>{{subProject.subProjectId}}</td>
+                  <td>{{subProject.subProjectName}}</td>
+                  <td>{{subProject.accountCreatedBy}}</td>
+                  <td>{{subProject.accountCreatedOn}}</td>
+				  <td><div class="btn-group">
+							<a data-toggle="dropdown"
+								class="glyphicon glyphicon-link btn btn-default dropdown-toggle">
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#" ng-click="editAccount(subProject)"><span
+										class="glyphicon glyphicon-edit"></span> Edit</a></li>
+								<li><a href="#"><span
+										class="glyphicon glyphicon-trash"></span> Delete</a></li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+</div>
+<div ng-include="'resources/views/footer.html'"></div>

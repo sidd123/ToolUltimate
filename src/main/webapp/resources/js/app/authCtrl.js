@@ -22,16 +22,6 @@ app.controller('authCtrl', function ($scope, $rootScope, $routeParams, $location
         });
     };
     
-    $scope.saveSubProject = function (subProject) {
-        Data.post('saveSubProject',subProject).then(function (results) {
-            Data.toast(results);
-            if (results.status == "success") {
-            	 alert('successfully created');
-            	$location.path('dashboard');
-            }
-        });
-    };
-    
     $scope.signup = {email:'',password:'',name:'',phone:'',address:''};
     $scope.signUp = function (customer) {
         Data.post('signUp', {

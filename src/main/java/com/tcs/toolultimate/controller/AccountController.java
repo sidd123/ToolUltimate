@@ -13,11 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tcs.toolultimate.config.Constants;
 import com.tcs.toolultimate.service.AccountService;
 import com.tcs.toolultimate.vo.Account;
-<<<<<<< Upstream, based on origin/master
-import com.tcs.toolultimate.vo.Employee;
-=======
 import com.tcs.toolultimate.vo.SubProjects;
->>>>>>> 297828c Vo update
 
 @Controller
 public class AccountController {
@@ -57,13 +53,14 @@ public class AccountController {
 		return accountDetails;
 	}
 	
-	@RequestMapping(value="/saveSubProject")
-	public @ResponseBody Map<String, Object> saveSubProject(SubProjects subProject){
-		//accountService.saveOrUpdateAccount(subProject);
-		List<Account> fetchAllAcounts = accountService.fetchAllAcounts();
-		Map<String, Object> subProjectDetails = new HashMap<String, Object>();
-		subProjectDetails.put(Constants.STATUS, fetchAllAcounts.size() > 0 ? Constants.SUCCESS : Constants.FAIL);
-		subProjectDetails.put(Constants.DETAILS, fetchAllAcounts);
-		return subProjectDetails;
+	@RequestMapping(value="/viewSubProject")
+	public @ResponseBody Map<String, Object> viewSubProject(){
+		List<SubProjects> fetchAllAcounts = accountService.fetchAllSubProjects();
+		Map<String, Object> accountDetails = new HashMap<String, Object>();
+		accountDetails.put(Constants.STATUS, fetchAllAcounts.size() > 0 ? Constants.SUCCESS : Constants.FAIL);
+		accountDetails.put(Constants.DETAILS, fetchAllAcounts);
+		accountDetails.put(Constants.TOTAL_RECORDS, fetchAllAcounts.size());
+		return accountDetails;
 	}
+	
 }
