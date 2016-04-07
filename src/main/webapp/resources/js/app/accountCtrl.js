@@ -15,7 +15,7 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
         Data.post('saveAccount', account).then(function (results) {
             Data.toast(results);
             if (results.status == "success") {
-            	$scope.accounts=results.details;
+            	$rootScope.accounts=results.details;
             }
             $('#accounts').DataTable();
         	$location.path('viewAccount');
@@ -26,10 +26,9 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
         Data.post('editAccount', account).then(function (results) {
             Data.toast(results);
             if (results.status == "success") {
-            	$scope.accounts=results.details;
+            	$rootScope.account=results.details;
             }
-            $('#accounts').DataTable();
-        	$location.path('viewAccount');
+            $location.path('addAccount');
         });
     };
 });

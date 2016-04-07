@@ -12,26 +12,29 @@
                   <th>Account Name</th>
                   <th>Created By</th>
                   <th>Created On</th>
+                  <th>Action</th>
                </tr>
             </thead>
-            <tfoot>
-               <tr>
-                  <th>Account Id</th>
-                  <th>Account Name</th>
-                  <th>Created By</th>
-                  <th>Created On</th>
-               </tr>
-            </tfoot>
             <tbody>
                <tr ng-repeat="account in accounts">
                   <td>{{account.accountId}}</td>
                   <td>{{account.accountName}}</td>
-                  <td>{{account.createdBy}}</td>
-                  <td>{{account.createdOn}}</td>
-                  <td><a href="#" class="btn btn-success btn-xs"
-                     ng-click="editAccount(account)"><span
-                     class="glyphicon glyphicon-edit"></span> Edit</a></td>
-               </tr>
+                  <td>{{account.accountCreatedBy}}</td>
+                  <td>{{account.accountCreatedOn}}</td>
+				  <td><div class="btn-group">
+							<a data-toggle="dropdown"
+								class="glyphicon glyphicon-link btn btn-default dropdown-toggle">
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#" ng-click="editAccount(account)"><span
+										class="glyphicon glyphicon-edit"></span> Edit</a></li>
+								<li><a href="#"><span
+										class="glyphicon glyphicon-trash"></span> Delete</a></li>
+							</ul>
+						</div>
+					</td>
+				</tr>
             </tbody>
          </table>
       </div>
