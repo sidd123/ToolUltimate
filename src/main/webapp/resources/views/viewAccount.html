@@ -1,66 +1,40 @@
 <div ng-include="'resources/views/menu.html'"></div>
 <div id="fh5co-features" data-section="design">
-	<div class="container">
-		<div class="row">
-			<div class="tool"
-				style="border: 1px solid; border-color: skyblue; height: 40px;">
-				<a href="#" style="margin-top: 2px; margin-left: 5px;"
-					class="btn btn-default"><span
-					class="glyphicon glyphicon-th-list"></span> List</a> <a href="#"
-					style="margin-top: 2px;" class="btn btn-default"><span
-					class="glyphicon glyphicon-plus"></span> New</a>
-
-				<div class="btn-group">
-					<a data-toggle="dropdown" class="glyphicon glyphicon-list btn btn-default dropdown-toggle">
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>
-								Edit</a></li>
-						<li><a href="#"><span class="glyphicon glyphicon-share"></span>
-								Share</a></li>
-						<li><a href="#"><span class="glyphicon glyphicon-print"></span>
-								Print</a></li>
-						<li class="divider"></li>
-						<li><a href="#"><span class="glyphicon glyphicon-trash"></span>
-								Delete</a></li>
-					</ul>
-				</div>
-
-
-			</div>
-			<br>
-			<table id="accounts" class="table table-striped table-bordered"
-				cellspacing="0" width="100%">
-				<thead>
-					<tr>
-						<th>Account Id</th>
-						<th>Account Name</th>
-						<th>Created By</th>
-						<th>Created On</th>
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<th>Account Id</th>
-						<th>Account Name</th>
-						<th>Created By</th>
-						<th>Created On</th>
-					</tr>
-				</tfoot>
-				<tbody>
-					<tr ng-repeat="account in accounts">
-						<td>{{account.accountId}}</td>
-						<td>{{account.accountName}}</td>
-						<td>{{account.createdBy}}</td>
-						<td>{{account.createdOn}}</td>
-						<td><a href="#" class="btn btn-success btn-xs"
-							ng-click="editAccount(account)"><span
-								class="glyphicon glyphicon-edit"></span> Edit</a></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+   <div class="container">
+      <div class="row">
+         <legend>All Accounts</legend>
+         <div ng-include="'resources/views/accountTool.html'"></div>
+         <table id="accounts" class="table table-striped table-bordered"
+            cellspacing="0" width="100%">
+            <thead>
+               <tr>
+                  <th>Account Id</th>
+                  <th>Account Name</th>
+                  <th>Created By</th>
+                  <th>Created On</th>
+               </tr>
+            </thead>
+            <tfoot>
+               <tr>
+                  <th>Account Id</th>
+                  <th>Account Name</th>
+                  <th>Created By</th>
+                  <th>Created On</th>
+               </tr>
+            </tfoot>
+            <tbody>
+               <tr ng-repeat="account in accounts">
+                  <td>{{account.accountId}}</td>
+                  <td>{{account.accountName}}</td>
+                  <td>{{account.createdBy}}</td>
+                  <td>{{account.createdOn}}</td>
+                  <td><a href="#" class="btn btn-success btn-xs"
+                     ng-click="editAccount(account)"><span
+                     class="glyphicon glyphicon-edit"></span> Edit</a></td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
 </div>
 <div ng-include="'resources/views/footer.html'"></div>
