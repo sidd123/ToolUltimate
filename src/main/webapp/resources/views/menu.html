@@ -1,12 +1,12 @@
 <div id="fh5co-offcanvass" style="background-color: #4776B1;">
 	<ul>
 		<li class="active"><a href="#/dashboard" data-nav-section="home">Home</a></li>
-		<li ng-controller="accountCtrl"><a href="#/vewAccount" ng-click="viewAccount()"
+		<li ><a href="" ng-controller="accountCtrl" ng-click="viewAccount()"
 			data-nav-section="features">Accounts</a></li>
-		<li><a href="#" data-nav-section="design">Sub Projects</a></li>
+		<li><a href="#" data-nav-section="design">Umbrella Projects</a></li>
 		<li><a href="#" data-nav-section="testimonies">Projects</a></li>
+		<li><a href="#" data-nav-section="design">Sub Projects</a></li>
 		<li><a href="#/employeeform" data-nav-section="products">Employee</a></li>
-		<li><a href="#" data-nav-section="benefits">Benefits</a></li>
 		<li><a href="#" data-nav-section="pricing">Profile</a></li>
 		<li><a href="#/logout" data-nav-section="faqs">Logout</a></li>
 	</ul>
@@ -24,9 +24,9 @@
 				<div class="col-md-6">
 					<p
 						style="margin-top: 30px; padding: 0; color: #fff; margin-bottom: 0px; font-size: 14px;">Welcome
-						{{loggedInUser.employeeName}}! (Last login Friday, 29th Jan, 2016)</p>
+						{{loggedInUser.employeeName}}! ({{loggedInUser.buildingName}}, {{loggedInUser.currentLocation}})</p>
 					<p
-						style="padding: 0; color: #fff; margin-bottom: 0px; font-size: 14px;">{{loggedInUser.buildingName}}, {{loggedInUser.currentLocation}}</p>
+						style="padding: 0; color: #fff; margin-bottom: 0px; font-size: 14px;">Total Experience: {{loggedInUser.totalExp}}, Project: {{loggedInUser.projectName}}</p>
 				</div>
 				<div class="col-md-2">
 					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"

@@ -34,8 +34,6 @@ app.config([ '$routeProvider', function($routeProvider) {
 		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/employeeform.html',
 		controller : 'authCtrl'
-	}).otherwise({
-		redirectTo : '/login'
 	});
 } ]).run(
 		[
