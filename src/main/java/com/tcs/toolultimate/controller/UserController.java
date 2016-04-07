@@ -43,6 +43,7 @@ public class UserController {
 	
 	@RequestMapping(value="/")
 	public ModelAndView test(HttpServletResponse response) throws IOException{
+		accountService.getAllUmbrellaProjectsForAccnt("10001");
 		return new ModelAndView("index");
 	}
 	

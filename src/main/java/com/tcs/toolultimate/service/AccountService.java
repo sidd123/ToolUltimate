@@ -1,6 +1,8 @@
 package com.tcs.toolultimate.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -15,6 +17,7 @@ import com.tcs.toolultimate.config.Constants;
 import com.tcs.toolultimate.dao.common.BaseDAO;
 import com.tcs.toolultimate.vo.Account;
 import com.tcs.toolultimate.vo.SubProjects;
+import com.tcs.toolultimate.vo.UmbrellaProject;
 
 @Service("AccountService")
 public class AccountService {
@@ -67,7 +70,7 @@ public class AccountService {
 	 */
 	public List<Account> fetchAllAcounts() {
 		Class<Account> objectType = Account.class;
-		List<Account> accounts = baseDAO.fetchDistinctRecords("ACCOUNT",objectType);
+		List<Account> accounts = baseDAO.fetchDistinctRecords(Constants.ACCOUNT_STORE_NAME,null,null,objectType);
 		
 		return accounts;
 	}
@@ -78,7 +81,7 @@ public class AccountService {
 	 */
 	public List<SubProjects> fetchAllSubProjects() {
 		Class<SubProjects> objectType = SubProjects.class;
-		List<SubProjects> subProjects = baseDAO.fetchDistinctRecords("ACCOUNT",objectType);
+		List<SubProjects> subProjects = baseDAO.fetchDistinctRecords("ACCOUNT",null,Constants.COLUMN_NAME_SUB_PROJ_ID,objectType);
 		
 		return subProjects;
 	}
@@ -114,6 +117,17 @@ public class AccountService {
 						Criteria.where(Constants.COLUMN_NAME_ACCOUNT_ID).is(
 								account.getAccountId())));
 		mongoTemplate.remove(query);
+	}
+	
+	public List<UmbrellaProject> getAllUmbrellaProjectsForAccnt(String accountId){
+		
+		Class<UmbrellaProject> objectType = UmbrellaProject.class;
+		Map<String,String> matchCriteria = new HashMap<String,String>();
+		matchCriteria.put(Constants.COLUMN_NAME_ACCOUNT_ID, accountId);
+		
+		List<UmbrellaProject> projects = baseDAO.fetchDistinctRecords(Constants.ACCOUNT_STORE_NAME, matchCriteria,Constants.COLUMN_NAME_UMBRELLA_PROJ_ID, objectType);
+		
+		return projects;
 	}
 
 }

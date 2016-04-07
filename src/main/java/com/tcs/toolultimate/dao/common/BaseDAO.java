@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.mapreduce.GroupBy;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -26,19 +30,52 @@ public class BaseDAO {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
-	public <T> List<T> fetchDistinctRecords(String collectionName,
+	public <T> List<T> fetchDistinctRecords(String collectionName,Map<String,String> matchCriteria,String notNullField,
 			Class<T> recordObjectType) {
-
+		
 		Field[] objAttr = recordObjectType.getDeclaredFields();
-		DBObject fields = new BasicDBObject();
+		List<DBObject> pipeline = new ArrayList<DBObject>();
+		List<DBObject> matchPipeLine = null;
+		
+		DBObject matchfields = null;
+		DBObject notNullFieldObj = null;
+		
+		if((matchCriteria != null && !matchCriteria.isEmpty()) || !StringUtils.isEmpty(notNullField)){
+			matchPipeLine = new ArrayList<DBObject>();
+			if(!StringUtils.isEmpty(notNullField)) {
+				DBObject notNullOper = new BasicDBObject();
+				notNullOper.put("$ne", null);
+				notNullFieldObj = new BasicDBObject();
+				notNullFieldObj.put(notNullField, notNullOper);
+				matchPipeLine.add(notNullFieldObj);
+				
+			}
+			if(matchCriteria != null && !matchCriteria.isEmpty()){
+				matchfields = new BasicDBObject();
+				for(Map.Entry<String,String> mapentry : matchCriteria.entrySet()){
+					matchfields.put(mapentry.getKey(), mapentry.getValue());
+				}
+				matchPipeLine.add(matchfields);
+			}
+			
+			DBObject andOper = new BasicDBObject();
+			andOper.put("$and", matchPipeLine);
+			
+			DBObject match = new BasicDBObject("$match", andOper);
+			pipeline.add(match);
+		}
+	
+		
+		DBObject groupfields = new BasicDBObject();
 
 		for (Field field : objAttr) {
-			fields.put(field.getName(), "$" + field.getName());
+			groupfields.put(field.getName(), "$" + field.getName());
 		}
-
-		DBObject groupFields = new BasicDBObject("_id", fields);
+		
+		DBObject groupFields = new BasicDBObject("_id", groupfields);
 		DBObject group = new BasicDBObject("$group", groupFields);
-		List<DBObject> pipeline = new ArrayList<DBObject>();
+		
+		
 		pipeline.add(group);
 
 		AggregationOutput output = mongoTemplate.getCollection(collectionName)
@@ -68,5 +105,7 @@ public class BaseDAO {
 		}
 		return recordObjects;
 	}
+	
+	
 
 }
