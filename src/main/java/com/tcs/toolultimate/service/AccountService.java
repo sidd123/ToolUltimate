@@ -1,8 +1,5 @@
 package com.tcs.toolultimate.service;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +11,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tcs.toolultimate.config.Constants;
 import com.tcs.toolultimate.dao.common.BaseDAO;
 import com.tcs.toolultimate.vo.Account;
