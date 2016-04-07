@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tcs.toolultimate.config.Constants;
+import com.tcs.toolultimate.service.AccountService;
 import com.tcs.toolultimate.service.EmployeeService;
 import com.tcs.toolultimate.vo.Employee;
 import com.tcs.toolultimate.vo.UserLogin;
@@ -32,6 +33,9 @@ public class UserController {
     
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Autowired
+	AccountService accountService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
@@ -62,7 +66,6 @@ public class UserController {
 		empl.setUsername(empl.getEmployeeId());
 		empl.setPassword(getDefaultPassword(empl.getEmployeeId()));
 		employeeService.saveEmployee(empl);
-
 		Map result = new HashMap();
 		result.put("status", "success");
 		return result;
@@ -74,9 +77,4 @@ public class UserController {
 		return password.toString();
 	}
 	
-
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
 }

@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.tcs.toolultimate.config.Constants;
+import com.tcs.toolultimate.dao.common.BaseDAO;
 import com.tcs.toolultimate.vo.Account;
 
 @Service("AccountService")
@@ -19,6 +20,9 @@ public class AccountService {
 
 	@Autowired
 	MongoTemplate mongoTemplate;
+	
+	@Autowired
+	BaseDAO baseDAO;
 
 	/**
 	 * This method is used to save account
@@ -62,7 +66,7 @@ public class AccountService {
 	 */
 	public List<Account> fetchAllAcounts() {
 		Class<Account> objectType = Account.class;
-		List<Account> accounts = fetchDistinctRecords("ACCOUNT",objectType);
+		List<Account> accounts = baseDAO.fetchDistinctRecords("ACCOUNT",objectType);
 		
 		return accounts;
 	}
@@ -91,7 +95,8 @@ public class AccountService {
 		}
 		return recordObjects;
 	}
-
+	
+	
 	/**
 	 * 
 	 * @param sortingOrder

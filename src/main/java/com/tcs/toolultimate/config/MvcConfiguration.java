@@ -20,6 +20,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import com.tcs.toolultimate.dao.common.BaseDAO;
 
 @Configuration
 @ComponentScan(basePackages="com.tcs.toolultimate")
@@ -74,6 +75,11 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
 		return new PropertySourcesPlaceholderConfigurer();
+	}
+	
+	@Bean
+	BaseDAO getBaseDAO(){
+		return new BaseDAO();
 	}
 
 	
