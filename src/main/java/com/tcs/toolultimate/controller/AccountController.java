@@ -48,7 +48,7 @@ public class AccountController {
 		List<Account> fetchAllAcounts = accountService.fetchAcountsByField(Constants.COLUMN_NAME_ACCOUNT_ID, account.getAccountId());
 		Map<String, Object> accountDetails = new HashMap<String, Object>();
 		accountDetails.put(Constants.STATUS, fetchAllAcounts.size() > 0 ? Constants.SUCCESS : Constants.FAIL);
-		accountDetails.put(Constants.DETAILS, fetchAllAcounts.get(0));
+		accountDetails.put(Constants.DETAILS, fetchAllAcounts.isEmpty() ? "" : fetchAllAcounts.get(0));
 		accountDetails.put(Constants.TOTAL_RECORDS, fetchAllAcounts.size());
 		return accountDetails;
 	}
