@@ -30,10 +30,10 @@ app.config([ '$routeProvider', function($routeProvider) {
 		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/addEditAccount.html',
 		controller : 'accountCtrl'
-	}).when('/employeeform', {
+	}).when('/addEmployee', {
 		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/employeeform.html',
-		controller : 'authCtrl'
+		controller : 'employeeCtrl'
 	}).when('/viewSubProject',{
 		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/viewSubProject.html',
@@ -61,6 +61,6 @@ app.config([ '$routeProvider', function($routeProvider) {
   		function($rootScope) {
 				$rootScope.$on('$routeChangeSuccess', 
 						function(event, current, previous) {
-							$rootScope.title = current.$$route.title;
+							//$rootScope.title = current.$$route.title;
 						});
 }]);

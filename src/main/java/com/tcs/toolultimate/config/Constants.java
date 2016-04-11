@@ -33,5 +33,6 @@ public class Constants {
 	public static final String ROLE_VALUE_PL = "4";
 	public static final String ROLE_VALUE_TL = "5";
 	public static final String ROLE_VALUE_DEV = "6";
+	public static final String ROLES_DROPDOWN_VALUES = "roles";
 	
 }

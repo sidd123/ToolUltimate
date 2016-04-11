@@ -39,6 +39,7 @@ public class BaseDAO {
 		
 		DBObject matchfields = null;
 		DBObject notNullFieldObj = null;
+		String[] matchCritValues = null;
 		
 		if((matchCriteria != null && !matchCriteria.isEmpty()) || !StringUtils.isEmpty(notNullField)){
 			matchPipeLine = new ArrayList<DBObject>();
@@ -53,7 +54,16 @@ public class BaseDAO {
 			if(matchCriteria != null && !matchCriteria.isEmpty()){
 				matchfields = new BasicDBObject();
 				for(Map.Entry<String,String> mapentry : matchCriteria.entrySet()){
-					matchfields.put(mapentry.getKey(), mapentry.getValue());
+					if(mapentry.getValue().contains(",")){
+						matchCritValues = mapentry.getValue().split(","); 
+						DBObject basicDB = new BasicDBObject();
+						basicDB.put("$in", matchCritValues);
+						matchfields.put(mapentry.getKey(), basicDB);
+					}else {
+						matchfields.put(mapentry.getKey(), mapentry.getValue());
+					}
+					
+					
 				}
 				matchPipeLine.add(matchfields);
 			}

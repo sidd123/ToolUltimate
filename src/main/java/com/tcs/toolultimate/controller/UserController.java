@@ -1,7 +1,9 @@
 package com.tcs.toolultimate.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +25,9 @@ import com.tcs.toolultimate.config.Constants;
 import com.tcs.toolultimate.service.AccountService;
 import com.tcs.toolultimate.service.EmployeeService;
 import com.tcs.toolultimate.vo.Employee;
+import com.tcs.toolultimate.vo.EmployeeHierarchyVO;
+import com.tcs.toolultimate.vo.Origin;
+import com.tcs.toolultimate.vo.Role;
 import com.tcs.toolultimate.vo.UserLogin;
 
 @Controller
@@ -43,7 +48,6 @@ public class UserController {
 	
 	@RequestMapping(value="/")
 	public ModelAndView test(HttpServletResponse response) throws IOException{
-		accountService.getAllUmbrellaProjectsForAccnt("10001");
 		return new ModelAndView("index");
 	}
 	
@@ -88,6 +92,62 @@ public class UserController {
 		}
 		
 		session.invalidate();
+	}
+	
+	
+	@RequestMapping(value="/sessionexists")
+	public @ResponseBody
+	String checkSessionExists(HttpSession session) throws IOException {
+		if(session.getAttribute("loggedInUser") != null){
+			return "true";
+		}else {
+			return "false";
+		}
+	}
+	
+	
+	@RequestMapping(value="/logout")
+	public @ResponseBody
+	void logout(HttpSession session) throws IOException {
+		if(session.getAttribute("loggedInUser") != null){
+			session.setAttribute("loggedInUser", null);
+		}
+		
+		session.invalidate();
+	}
+	
+	
+	@RequestMapping(value="/addEmployee")
+	public @ResponseBody
+	Map addEmployee(HttpSession session) throws IOException {
+		Map<String, Object> fetchedUserDetails = new HashMap<String, Object>();
+		String level = null;
+		List<String> orgs = null;
+		
+		
+		if(session.getAttribute("loggedInUser") != null){
+			
+			Employee loggedInUser = (Employee)session.getAttribute("loggedInUser");
+			level = loggedInUser.getLevel();
+			
+			List<EmployeeHierarchyVO> allOrgs = loggedInUser.getAllOrgs();
+			orgs = new ArrayList<String>();
+			for(EmployeeHierarchyVO org : allOrgs) {
+				orgs.add(org.getOriginId());
+			}
+			
+			List<Role> rolesAvaliable = employeeService.getRolesBelow(loggedInUser.getRoleId());
+			
+			//List<Origin> ogrs = employeeService.getAllOrignis(Constants.LEVEL_VALUE_SUB_PROJECT, orgs, level);
+			fetchedUserDetails.put(Constants.ROLES_DROPDOWN_VALUES,rolesAvaliable);
+			
+			fetchedUserDetails.put(Constants.STATUS, Constants.SUCCESS);
+		} else {
+			fetchedUserDetails.put(Constants.STATUS, Constants.FAIL);
+		}
+		
+		return fetchedUserDetails;
+		
 	}
 	
 	

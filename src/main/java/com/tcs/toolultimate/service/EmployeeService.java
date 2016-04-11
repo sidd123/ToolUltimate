@@ -113,12 +113,13 @@ public class EmployeeService {
 	}
 	
 	
-	public List<Origin> getAllOrignis(String selectedlevel, String creatorOrgId,String creatorOrgLevel){
+	public List<Origin> getAllOrignis(String selectedlevel, List<String> creatorOrgId,String creatorOrgLevel){
 		List<Origin> origins = null;
 		String originFieldId = "";
 		String parentOriginFieldId = "";
 		Class<?> objectType = null;
 		Origin origin = null;
+		StringBuffer orgStr = new StringBuffer("");
 		
 		if (Constants.LEVEL_VALUE_ACOOUNT.equals(selectedlevel)) {
 			originFieldId =  Constants.COLUMN_NAME_ACCOUNT_ID;
@@ -148,7 +149,17 @@ public class EmployeeService {
 		}
 		
 		Map<String,String> matchCriteria = new HashMap<String,String>();
-		matchCriteria.put(parentOriginFieldId, creatorOrgId);
+		if(creatorOrgId != null && creatorOrgId.size()>0){
+			for(String orgId : creatorOrgId) {
+				if(orgStr.length() == 0) {
+					orgStr.append(orgId);
+				}else {
+					orgStr.append(",").append(orgId);
+				}
+			}
+		}
+		matchCriteria.put(parentOriginFieldId, orgStr.toString());
+		
 		
 		List<?> results = baseDAO.fetchDistinctRecords(Constants.ACCOUNT_STORE_NAME, matchCriteria, originFieldId, objectType);
 		
