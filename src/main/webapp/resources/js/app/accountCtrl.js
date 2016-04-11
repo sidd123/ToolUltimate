@@ -6,8 +6,19 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
             if (results.status == "success") {
             	$rootScope.accounts=results.details;
             }
-            $('#accounts').DataTable();
-        	$location.path('viewAccount');
+            $('.filter').createFilter('init');
+            $('.filter').createFilter({
+            	buildFilter: true,
+                filterArr: [{
+					filterHeader: 'Created By',
+					jsonSource: $.parseJSON('[{"key":4000004807,"id":"4000004807","desc":"Clark County School District 1","levelName":"District"}]'),
+					isRadio: false,
+					manadatory: true,
+					showAllNone:true
+				}]
+			});
+            
+            $location.path('viewAccount');
         });
     };    
     
@@ -28,6 +39,7 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
             if (results.status == "success") {
             	$rootScope.account=results.details;
             }
+            $('#AccountId').disable();
             $location.path('addAccount');
         });
     };

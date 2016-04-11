@@ -1,43 +1,140 @@
 <div ng-include="'resources/views/menu.html'"></div>
-<div id="fh5co-features" data-section="design">
-   <div class="container">
-      <div class="row">
-         <legend>All Accounts</legend>
-         <div ng-include="'resources/views/accountTool.html'"></div>
-         <table id="accounts" class="table table-striped table-bordered"
-            cellspacing="0" width="100%">
-            <thead>
-               <tr>
-                  <th>Account Id</th>
-                  <th>Account Name</th>
-                  <th>Created By</th>
-                  <th>Created On</th>
-                  <th>Action</th>
-               </tr>
-            </thead>
-            <tbody>
-               <tr ng-repeat="account in accounts">
-                  <td>{{account.accountId}}</td>
-                  <td>{{account.accountName}}</td>
-                  <td>{{account.accountCreatedBy}}</td>
-                  <td>{{account.accountCreatedOn}}</td>
-				  <td><div class="btn-group">
-							<a data-toggle="dropdown"
-								class="glyphicon glyphicon-link btn btn-default dropdown-toggle">
-								<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu">
-								<li><a href="#" ng-click="editAccount(account)"><span
-										class="glyphicon glyphicon-edit"></span> Edit</a></li>
-								<li><a href="#"><span
-										class="glyphicon glyphicon-trash"></span> Delete</a></li>
-							</ul>
+<div id="wrap" data-section="design" style="margin-top: 100px;">
+	<div class="container" id="main">
+		<!-- Filter Section -->
+		<div class="results filter-open" id="filterContent">
+			<div class="filter">
+				<button class="btn btn-filter" type="button">
+					<i class="right">Refine <span class="more">Search</span></i>
+				</button>
+				<div class="body">
+					<div class="body-content">
+						<div class="controls">
+							<button class="text clear-all last" type="button" ng-click="viewAccount()">Reset All</button>
 						</div>
-					</td>
-				</tr>
-            </tbody>
-         </table>
-      </div>
-   </div>
-</div>
-<div ng-include="'resources/views/footer.html'"></div>
+						<ul class="categories">
+						</ul>
+						<!-- /.categories -->
+						<div class="foot"></div>
+					</div>
+					<!-- /.body-content -->
+				</div>
+				<!-- /.body -->
+			</div>
+
+			<!-- Filter Section Ends-->
+			<div class="pane">
+				<div class="pane-title">
+					<h2 style="float: left;">
+						Accounts (<span id="count">{{accounts.length}}</span>)
+					</h2>	
+					<a href="#/addAccount" style="margin-left: 350px;"	class="new-btn btn btn-default"><span class="glyphicon glyphicon-plus"></span> Create Account</a>				
+				</div>
+				<!-- /.pane-title -->
+				<div class="toolbar" style="margin-top: 20px;">
+					<div class="light">
+						<div class="search-width search-control">
+							<input type="text" class="search text" placeholder="Search... "
+								autocomplete="off" name="quick_find" id="quick_find" value="" />
+							<span class="glyphicon glyphicon-search"></span> <span class="sr-only">Search</span>
+							<button class="icon-only clear" type="button">Clear
+								Search</button>
+						</div>
+						<!-- /.search-width -->
+					</div>
+					<!-- /.light -->
+					<div class="dark right">
+						<div id="sort-settings">
+							<div class="btn-group">
+								<a data-toggle="dropdown"
+									class="glyphicon glyphicon-sort btn btn-default dropdown-toggle">
+									Sort&nbsp;<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="#"><span
+											class="glyphicon glyphicon-sort-by-attributes"></span> Account Id</a></li>
+									<li><a href="#"><span
+											class="glyphicon glyphicon-sort-by-attributes-alt"></span> Account
+											Id</a></li>
+									<li class="divider"></li>
+									<li><a href="#"><span
+											class="glyphicon glyphicon-sort-by-alphabet"></span> Account Name</a></li>
+									<li><a href="#"><span
+											class="glyphicon glyphicon-sort-by-alphabet-alt"></span> Account
+											Name</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- /.sort-settings -->
+					</div>
+					<!-- /.dark right -->
+				</div>
+				<!-- /.toolbar -->
+				<table cellspacing="0" class="classes">
+					<tbody>
+						<tr ng-repeat="account in accounts">
+							<td>
+								<h3>{{account.accountName}}</h3>
+								<p>Account Id: {{account.accountId}}</p>
+								<p>Create by: {{account.accountCreatedBy}}</p>
+								<p>Create on: {{account.accountCreatedOn}}</p>
+							</td>
+							<td class="students">
+									<p align="center"><b>{{accounts.length}}</b><br/>
+											Umbrella Project(s)
+									</p>
+							 </td>
+							 <td class="students">
+									<p align="center"><b>{{accounts.length}}</b><br/>
+											Project(s)
+									</p>
+							 </td>
+							 <td class="students">
+									<p align="center"><b>{{accounts.length}}</b><br/>
+											Sub Project(s)
+									</p>
+							 </td>
+							 <td>
+							 	<div class="btn-group">
+									<a data-toggle="dropdown"
+										class="glyphicon glyphicon-link btn btn-default dropdown-toggle">
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu">
+										<li><a href="#" ng-click="editAccount(account)"><span
+												class="glyphicon glyphicon-edit"></span> Edit</a></li>
+										<li><a href="#"><span
+												class="glyphicon glyphicon-trash"></span> Delete</a></li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="pagination">
+					<div class="btn-group">
+						<a data-toggle="dropdown"
+							class="glyphicon glyphicon-list-alt btn btn-default dropdown-toggle">
+							Items&nbsp;<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#"><span class="glyphicon glyphicon-ok-circle"></span>
+									20</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-ok-circle"></span>
+									50</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-ok-circle"></span>
+									100</a></li>
+						</ul>
+					</div>
+					<!-- /.settings -->
+					<div class="pages">
+						<ul id="paginationLink"></ul>
+					</div>
+					<!-- /.pages -->
+				</div>
+				<!-- /.pagination -->
+			</div>
+			<!-- pane -->
+		</div>
+	</div>
+	<div ng-include="'resources/views/footer.html'"></div>
