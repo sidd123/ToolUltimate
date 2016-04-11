@@ -8,7 +8,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/logout', {
 		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/login.html',
-		controller : 'logoutCtrl'
+		controller : 'authCtrl'
 	}).when('/signup', {
 		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/signup.html',
@@ -44,8 +44,8 @@ app.config([ '$routeProvider', function($routeProvider) {
 					$rootScope.$on("$routeChangeStart", 
 							function(event, next, current) {
 								Data.get('sessionexists').then(function (results) {
-					                if (results.uid) {
-					                    $rootScope.uid = results.uid;
+					                if (results == "true") {
+					                    //$rootScope.uid = results.uid;
 					                } else {
 					                    var nextUrl = next.$$route.originalPath;
 					                    if (nextUrl == '/signup' || nextUrl == '/login') {

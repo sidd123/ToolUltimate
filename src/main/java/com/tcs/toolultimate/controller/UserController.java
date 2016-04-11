@@ -2,7 +2,6 @@ package com.tcs.toolultimate.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -69,6 +68,28 @@ public class UserController {
 		
 		return fetchedUserDetails;
 	}
+	
+	@RequestMapping(value="/sessionexists")
+	public @ResponseBody
+	String checkSessionExists(HttpSession session) throws IOException {
+		if(session.getAttribute("loggedInUser") != null){
+			return "true";
+		}else {
+			return "false";
+		}
+	}
+	
+	
+	@RequestMapping(value="/logout")
+	public @ResponseBody
+	void logout(HttpSession session) throws IOException {
+		if(session.getAttribute("loggedInUser") != null){
+			session.setAttribute("loggedInUser", null);
+		}
+		
+		session.invalidate();
+	}
+	
 	
 	
 	@RequestMapping(value="/saveemployee",method=RequestMethod.POST)	
