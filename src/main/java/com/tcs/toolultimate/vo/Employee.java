@@ -1,10 +1,15 @@
 package com.tcs.toolultimate.vo;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.tcs.toolultimate.config.Constants;
 
-@Document(collection="EMPLOYEE_DETAILS")
+
+@Document(collection=Constants.EMPLOYEE_STORE_NAME)
 public class Employee{
 	
 	
@@ -21,13 +26,15 @@ public class Employee{
 	
 	private String email="";
 	
-	private String projectName="";
+	private String role="";
 	
-	private String projectId = "";
+	private String roleId = "";
 	
-	private String subProjectName="";
+	private String level="";
 	
-	private String subProjectId="";
+	private String originId="";
+	
+	private String originName="";
 	
 	
 	private String totalExp="";
@@ -66,6 +73,61 @@ public class Employee{
 	
 
 	private String visaEndDate = "";
+	
+	@Transient
+	private List<EmployeeHierarchyVO> allOrgs;
+	
+
+	public String getOriginName() {
+		return originName;
+	}
+
+
+	public void setOriginName(String originName) {
+		this.originName = originName;
+	}
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
+	public String getRoleId() {
+		return roleId;
+	}
+
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+
+
+	public String getLevel() {
+		return level;
+	}
+
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	
+
+
+	public String getOriginId() {
+		return originId;
+	}
+
+
+	public void setOriginId(String originId) {
+		this.originId = originId;
+	}
 
 
 	public String getId() {
@@ -125,46 +187,6 @@ public class Employee{
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-
-	public String getProjectName() {
-		return projectName;
-	}
-
-
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
-	}
-
-
-	public String getProjectId() {
-		return projectId;
-	}
-
-
-	public void setProjectId(String projectId) {
-		this.projectId = projectId;
-	}
-
-
-	public String getSubProjectName() {
-		return subProjectName;
-	}
-
-
-	public void setSubProjectName(String subProjectName) {
-		this.subProjectName = subProjectName;
-	}
-
-
-	public String getSubProjectId() {
-		return subProjectId;
-	}
-
-
-	public void setSubProjectId(String subProjectId) {
-		this.subProjectId = subProjectId;
 	}
 
 
@@ -316,11 +338,15 @@ public class Employee{
 	public void setVisaEndDate(String visaEndDate) {
 		this.visaEndDate = visaEndDate;
 	}
-	
-	
-	
-	
-	
-	
+
+
+	public List<EmployeeHierarchyVO> getAllOrgs() {
+		return allOrgs;
+	}
+
+
+	public void setAllOrgs(List<EmployeeHierarchyVO> allOrgs) {
+		this.allOrgs = allOrgs;
+	}
 	
 }

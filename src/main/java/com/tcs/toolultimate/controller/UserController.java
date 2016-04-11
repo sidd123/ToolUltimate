@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,14 +49,24 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)	
-	public @ResponseBody Map<String, Object> doLogin(@RequestBody UserLogin user) throws IOException{
+	public @ResponseBody Map<String, Object> doLogin(HttpSession session,@RequestBody UserLogin user) throws IOException{
 		logger.debug("username: " + user.getUsername());
 		logger.debug("password: " + user.getPassword());
-		List<Employee> fetchUserByCredentials = employeeService.fetchUserByCredentials(user);
 		Map<String, Object> fetchedUserDetails = new HashMap<String, Object>();
-		fetchedUserDetails.put(Constants.STATUS, fetchUserByCredentials.size() > 0 ? Constants.SUCCESS : Constants.FAIL);
-		fetchedUserDetails.put(Constants.DETAILS, fetchUserByCredentials.isEmpty() ? "" : fetchUserByCredentials.get(0));
-		logger.debug("total records found: " + fetchUserByCredentials.size());
+		Employee fetchUserByCredentials = null;
+		
+		if(session.getAttribute("loggedInUser") != null){
+			fetchUserByCredentials = (Employee) session.getAttribute("loggedInUser");
+		}else {
+			fetchUserByCredentials = employeeService.fetchUserByCredentials(user);
+			session.setAttribute("loggedInUser", fetchUserByCredentials);			
+		}
+		
+
+		fetchedUserDetails.put(Constants.STATUS, fetchUserByCredentials != null ? Constants.SUCCESS : Constants.FAIL);
+		fetchedUserDetails.put(Constants.DETAILS, fetchUserByCredentials);
+		
+		
 		return fetchedUserDetails;
 	}
 	

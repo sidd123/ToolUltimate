@@ -3,7 +3,9 @@ package com.tcs.toolultimate.vo;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="ACCOUNT")
+import com.tcs.toolultimate.config.Constants;
+
+@Document(collection=Constants.ACCOUNT_STORE_NAME)
 public class Account {
 
 	@Id
