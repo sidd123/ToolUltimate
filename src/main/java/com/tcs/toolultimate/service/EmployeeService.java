@@ -2,31 +2,23 @@ package com.tcs.toolultimate.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.AggregationOutput;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.tcs.toolultimate.config.Constants;
 import com.tcs.toolultimate.dao.common.BaseDAO;
-import com.tcs.toolultimate.vo.Account;
 import com.tcs.toolultimate.vo.Employee;
 import com.tcs.toolultimate.vo.Level;
 import com.tcs.toolultimate.vo.Origin;
@@ -165,36 +157,42 @@ public class EmployeeService {
 		
 		try {
 			for (DBObject record : results) {
-				
 
 				if (Constants.LEVEL_VALUE_UMBRELLA.equals(selectedlevel)) {
 					originFieldName = Constants.COLUMN_NAME_UMBRELLA_PROJECTS;
-					UmbrellaProject project = mapper.readValue(record.get(originFieldName).toString(), UmbrellaProject.class);
+					UmbrellaProject project = mapper.readValue(
+							record.get(originFieldName).toString(),
+							UmbrellaProject.class);
 					origin = new Origin();
 					origin.setOriginId(project.getUmbrellaProjectId());
 					origin.setOriginName(project.getUmbrellaProjectName());
-				}else if (Constants.LEVEL_VALUE_PROJECT.equals(selectedlevel)) {
+				} else if (Constants.LEVEL_VALUE_PROJECT.equals(selectedlevel)) {
 					originFieldName = Constants.COLUMN_NAME_PROJECTS;
-					Project project = mapper.readValue(record.get(originFieldName).toString(), Project.class);
+					Project project = mapper.readValue(record.get(originFieldName)
+							.toString(), Project.class);
 					origin = new Origin();
 					origin.setOriginId(project.getProjectId());
 					origin.setOriginName(project.getProjectName());
-					
-				}else if (Constants.LEVEL_VALUE_SUB_PROJECT.equals(selectedlevel)) {
+
+				} else if (Constants.LEVEL_VALUE_SUB_PROJECT.equals(selectedlevel)) {
 					originFieldName = Constants.COLUMN_NAME_SUBPROJECTS;
-					SubProjects project = mapper.readValue(record.get(originFieldName).toString(), SubProjects.class);
-					
+					SubProjects project = mapper.readValue(
+							record.get(originFieldName).toString(),
+							SubProjects.class);
+
 					origin = new Origin();
 					origin.setOriginId(project.getSubProjectId());
 					origin.setOriginName(project.getSubProjectName());
-					
+
 				}
-				
+
 				origins.add(origin);
-				
-				
+
 			}
 		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
