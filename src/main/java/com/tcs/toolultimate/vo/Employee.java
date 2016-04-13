@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.tcs.toolultimate.config.Constants;
 
 
-@Document(collection=Constants.ULTIMATEDOCUMENT_STORE_NAME)
+@Document(collection=Constants.EMPLOYEE_STORE_NAME)
 public class Employee{
 	
 	

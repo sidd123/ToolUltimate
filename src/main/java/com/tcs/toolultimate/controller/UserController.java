@@ -107,12 +107,12 @@ public class UserController {
 			Employee loggedInUser = (Employee)session.getAttribute("loggedInUser");
 			level = loggedInUser.getLevel();
 			
-			List<EmployeeHierarchyVO> allOrgs = loggedInUser.getAllOrgs();
+			/*List<EmployeeHierarchyVO> allOrgs = loggedInUser.getAllOrgs();
 			orgs = new ArrayList<String>();
 			for(EmployeeHierarchyVO org : allOrgs) {
 				orgs.add(org.getOriginId());
 			}
-			
+			*/
 			List<Role> rolesAvaliable = employeeService.getRolesBelow(loggedInUser.getRoleId());
 			
 			//List<Origin> ogrs = employeeService.getAllOrignis(Constants.LEVEL_VALUE_SUB_PROJECT, orgs, level);
