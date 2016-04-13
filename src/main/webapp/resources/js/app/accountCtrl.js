@@ -1,15 +1,15 @@
 app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
     //initially set those objects to null to avoid undefined error
-   $scope.viewAccount = function () {
+	var searchAttribute = {
+			quickSearchText: 'DR', 
+			pageIndex: 1,
+			sortByCol : 'accountName',
+			sortByDir : 'asc',
+			itemPerPage : 25
+	};
+    $scope.viewAccount = function () {
 	  
-	   var searchAttribute = {
-				quickSearchText: 'DR', 
-				pageIndex: 1,
-				sortByCol : 'accountName',
-				sortByDir : 'asc',
-				itemPerPage : 25
-		};
-        Data.post('viewAccount', searchAttribute).then(function (results) {
+	   Data.post('viewAccount', searchAttribute).then(function (results) {
             Data.toast(results);
             if (results.status == "success") {
             	$rootScope.accounts=results.details;

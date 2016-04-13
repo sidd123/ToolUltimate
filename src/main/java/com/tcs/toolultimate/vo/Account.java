@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.tcs.toolultimate.config.Constants;
 
-@Document(collection=Constants.ACCOUNT_STORE_NAME)
+@Document(collection=Constants.ULTIMATEDOCUMENT_STORE_NAME)
 public class Account {
 
 	@Id

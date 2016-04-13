@@ -74,11 +74,11 @@ public class EmployeeService {
 				orgVO.setRoleId(emp.getRoleId());
 				orgVO.setRole(emp.getRole());
 				orgVO.setLevel(emp.getLevel());
-				orgVO.setOriginId(emp.getOriginId());
-				orgVO.setOriginName(emp.getOriginName());
+				/*orgVO.setOriginId(emp.getOriginId());
+				orgVO.setOriginName(emp.getOriginName());*/
 				allOrgs.add(orgVO);
 			}
-			employee.setAllOrgs(allOrgs);
+			/*employee.setAllOrgs(allOrgs);*/
 		}
 		
 		return employee;
