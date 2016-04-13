@@ -1,7 +1,6 @@
 package com.tcs.toolultimate.config;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Comparator;
 
 import org.slf4j.Logger;
@@ -16,12 +15,6 @@ public class SearchComparator implements Comparator<Object> {
 
 	private String sortField;
 	private String sortingOrder;
-
-	/*public SearchComparator(String sortField, String sortingOrder) {
-		super();
-		this.sortField = sortField;
-		this.sortingOrder = sortingOrder;
-	}*/
 
 	/**
 	 * @return the sortField

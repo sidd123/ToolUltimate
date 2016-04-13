@@ -21,11 +21,6 @@ public class SearchHelper {
 	@Autowired
 	SearchComparator comparator;
 
-	/*public SearchHelper(Search searchAttribute) {
-		setStartIndex(searchAttribute);
-		setLastIndex(searchAttribute);
-	}*/
-
 	public Map<String, Object> getFinalResults(List<?> searchResults, Search searchAttribute) throws IllegalArgumentException, IllegalAccessException{
 		if(Utility.isEmptyOrNull(searchResults)){			
 			return emptyResult(searchAttribute);
