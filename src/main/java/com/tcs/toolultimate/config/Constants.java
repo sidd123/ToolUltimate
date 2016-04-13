@@ -3,6 +3,7 @@ package com.tcs.toolultimate.config;
 public class Constants {
 	public static final String ACCOUNT_STORE_NAME = "ACCOUNT";
 	public static final String EMPLOYEE_STORE_NAME = "EMPLOYEE_DETAILS";
+	public static final String ULTIMATEDOCUMENT_STORE_NAME = "ULTIMATEDOCUMENT";
 	public static final String ROLE_STORE_NAME = "ROLE";
 	public static final String LEVEL_STORE_NAME = "LEVEL";
 	public static final String COLUMN_NAME_USERNAME = "username";
@@ -36,6 +37,8 @@ public class Constants {
 	public static final String ROLE_VALUE_TL = "5";
 	public static final String ROLE_VALUE_DEV = "6";
 	public static final String ROLES_DROPDOWN_VALUES = "roles";
+	public static final String LEVELS_DROPDOWN_VALUES = "levels";
+	public static final String ORIGIN_DROPDOWN_VALUES = "origins";
 	public static final String MESSAGE = "message";
 	public static final Object NO_DATA_FOUND = "no data found";
 	public static final Object DATA_FOUND = "data found";
