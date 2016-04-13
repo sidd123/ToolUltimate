@@ -57,11 +57,13 @@
 		                         </div>
                             </div>
                             
-                            <div class="form-group">
-                               <label class="col-sm-5 control-label no-padding-right" for="name">Select Level</label>
+
+                            <div class="form-group" id="origin-container" ng-show="showorigin == true">
+                               <label class="col-sm-5 control-label no-padding-right" for="name">Select {{originlabel}}</label>
 		                         <div class="col-sm-7">
 		                             <span class="block input-icon input-icon-right">
-		                             	<select ng-options="level as level.level for level in levelsdropdown" class="form-control" placeholder="Level" name="selectedlevel" ng-model="level.levelId"><option value="">-- Select Level --</option></select>
+		                             	<select ng-options="origin as origin.originName for origin in origins" class="form-control" placeholder="{{originlabel}}" name="selectedOrigin" ng-model="origin.originId"><option value="">-- Select {{originlabel}} --</option></select>
+
 		                                 
 		                             </span>
 		                         </div>

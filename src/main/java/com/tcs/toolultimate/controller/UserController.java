@@ -25,6 +25,7 @@ import com.tcs.toolultimate.service.AccountService;
 import com.tcs.toolultimate.service.EmployeeService;
 import com.tcs.toolultimate.vo.Employee;
 import com.tcs.toolultimate.vo.Level;
+import com.tcs.toolultimate.vo.Origin;
 import com.tcs.toolultimate.vo.Role;
 import com.tcs.toolultimate.vo.UserLogin;
 
@@ -115,6 +116,8 @@ public class UserController {
 	}
 	
 	
+
+	
 	
 	@RequestMapping(value="/viewLevels", method=RequestMethod.POST)
 	public @ResponseBody
@@ -145,10 +148,20 @@ public class UserController {
 		if(session.getAttribute("loggedInUser") != null){
 			Employee loggedInUser = (Employee)session.getAttribute("loggedInUser");
 			
-			employeeService.getAllOrignis(level.getLevel(), loggedInUser.getUserRoles().getOriginIds(), loggedInUser.getLevel());
-			//List<Level> levels = employeeService.getLevelForSeletedRole(role.getRoleId());
+			List<Origin> origins = employeeService.getAllOrignis(level.getLevel(), loggedInUser.getUserRoles().getOriginIds(), loggedInUser.getLevel());
 			
-			//fetchedUserDetails.put(Constants.LEVELS_DROPDOWN_VALUES,levels);
+			fetchedUserDetails.put(Constants.ORIGIN_DROPDOWN_VALUES,origins);
+			
+			
+			if (Constants.LEVEL_VALUE_UMBRELLA.equals(level.getLevel())) {
+				fetchedUserDetails.put(Constants.ORIGIN_LABEL_NAME,Constants.ORIGIN_VALUE_UMBRELLA_PROJ);
+			}else if(Constants.LEVEL_VALUE_PROJECT.equals(level.getLevel())) {
+				fetchedUserDetails.put(Constants.ORIGIN_LABEL_NAME,Constants.ORIGIN_VALUE_PROJ);
+			}else if (Constants.LEVEL_VALUE_SUB_PROJECT.equals(level.getLevel())) {
+				fetchedUserDetails.put(Constants.ORIGIN_LABEL_NAME,Constants.ORIGIN_VALUE_SUB_PROJ);
+			}
+			
+			
 			
 			fetchedUserDetails.put(Constants.STATUS, Constants.SUCCESS);
 		} else {

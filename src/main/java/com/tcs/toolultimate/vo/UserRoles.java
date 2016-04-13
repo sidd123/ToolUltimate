@@ -22,8 +22,8 @@ public class UserRoles {
 	/**
 	 * @param originIds the originIds to set
 	 */
+
 	public void setOriginIds(Set<String> originIds) {
->>>>>>> dff79e0 Changes for Data structire change
 		this.originIds = originIds;
 	}
 	/**

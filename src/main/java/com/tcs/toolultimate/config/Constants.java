@@ -48,4 +48,8 @@ public class Constants {
 	public static final String EMPTY_STRING = "";
 	public static final String SEARCH_ATTRIBUTE = "searchAttributes";
 	public static final String SORTING_ORDER_ASCENDING = "ASC";
+	public static final String ORIGIN_LABEL_NAME = "originlabelname";
+	public static final String ORIGIN_VALUE_UMBRELLA_PROJ = "Umbrella Project";
+	public static final String ORIGIN_VALUE_PROJ = "Project";
+	public static final String ORIGIN_VALUE_SUB_PROJ = "Sub-Project";
 }

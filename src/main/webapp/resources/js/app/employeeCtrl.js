@@ -24,12 +24,13 @@ app.controller('employeeCtrl', function ($scope, $rootScope, $routeParams, $loca
     
     
     $scope.viewOrigins = function (level) {
-        Data.post('viewOrigins',level).then(function (results) {
-          
+        Data.post('viewOrigins',level).then(function (results) {          
         	 Data.toast(results);
              if (results.status == "success") {
-             	$rootScope.ORIGIN_DROPDOWN_VALUES = results.origins;
-             	$rootScope.ORIGIN_LEVEL = results.originLevel;
+
+             	$rootScope.origins = results.origins;
+             	$rootScope.originlabel = results.originlabelname;
+             	$rootScope.showorigin = true;
              }
             $location.path('addEmployee');
         });
