@@ -94,29 +94,6 @@ public class UserController {
 		session.invalidate();
 	}
 	
-	
-	@RequestMapping(value="/sessionexists")
-	public @ResponseBody
-	String checkSessionExists(HttpSession session) throws IOException {
-		if(session.getAttribute("loggedInUser") != null){
-			return "true";
-		}else {
-			return "false";
-		}
-	}
-	
-	
-	@RequestMapping(value="/logout")
-	public @ResponseBody
-	void logout(HttpSession session) throws IOException {
-		if(session.getAttribute("loggedInUser") != null){
-			session.setAttribute("loggedInUser", null);
-		}
-		
-		session.invalidate();
-	}
-	
-	
 	@RequestMapping(value="/addEmployee")
 	public @ResponseBody
 	Map addEmployee(HttpSession session) throws IOException {
