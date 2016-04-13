@@ -19,6 +19,8 @@ public class Constants {
 	public static final String COLUMN_NAME_ROLE= "role";
 	public static final String COLUMN_NAME_LEVEL= "level";
 	public static final String COLUMN_NAME_LEVEL_ID= "levelId";
+	public static final String COLUMN_NAME_ACCOUNT_CREATED_BY = "accountCreatedBy";
+	public static final String COLUMN_NAME_ACCOUNT_CREATED_ON = "accountCreatedOn";
 	public static final String STATUS = "status";
 	public static final String SUCCESS = "success";
 	public static final String FAIL = "fail";
@@ -34,5 +36,10 @@ public class Constants {
 	public static final String ROLE_VALUE_TL = "5";
 	public static final String ROLE_VALUE_DEV = "6";
 	public static final String ROLES_DROPDOWN_VALUES = "roles";
-	
+	public static final String MESSAGE = "message";
+	public static final Object NO_DATA_FOUND = "no data found";
+	public static final Object DATA_FOUND = "data found";
+	public static final String EMPTY_STRING = "";
+	public static final String SEARCH_ATTRIBUTE = "searchAttributes";
+	public static final String SORTING_ORDER_ASCENDING = "ASC";
 }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import com.tcs.toolultimate.config.Constants;
@@ -33,8 +34,24 @@ public class AccountService {
 	 * 
 	 * @param account
 	 */
-	public void saveOrUpdateAccount(Account account) {
+	public void saveAccount(Account account) {
 		mongoTemplate.save(account);
+	}
+	
+	/**
+	 * This method is used to update account
+	 * 
+	 * @param account
+	 */
+	public void saveOrUpdateAccount(Account account) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where(Constants.COLUMN_NAME_ACCOUNT_ID).is(account.getAccountId()));
+		Update update = new Update();
+		update.set(Constants.COLUMN_NAME_ACCOUNT_ID, account.getAccountId());
+		update.set(Constants.COLUMN_NAME_ACCOUNT_NAME, account.getAccountName());
+		update.set(Constants.COLUMN_NAME_ACCOUNT_CREATED_BY, account.getAccountCreatedBy());
+		update.set(Constants.COLUMN_NAME_ACCOUNT_CREATED_ON, account.getAccountCreatedOn());
+		mongoTemplate.upsert(query, update, Account.class);
 	}
 
 	/**
