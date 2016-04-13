@@ -1,4 +1,4 @@
-var app = angular.module('myApp', [ 'ngRoute', 'ngAnimate', 'toaster' ]);
+var app = angular.module('myApp', [ 'ngRoute', 'ngAnimate', 'toaster', 'nzToggle', 'ultimateDataTableServices' ]);
 
 app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/login', {
@@ -45,8 +45,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 							function(event, next, current) {
 								Data.get('sessionexists').then(function (results) {
 					                if (results == "true") {
-					                    //$rootScope.uid = results.uid;
+					                	$rootScope.loggedInUser = true;
 					                } else {
+					                	$rootScope.loggedInUser = false;
 					                    var nextUrl = next.$$route.originalPath;
 					                    if (nextUrl == '/signup' || nextUrl == '/login') {
 		

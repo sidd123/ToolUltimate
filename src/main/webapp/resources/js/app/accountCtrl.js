@@ -56,7 +56,103 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
     	Data.post('viewSubProject').then(function (results) {
             Data.toast(results);
             if (results.status == "success") {
-            	$rootScope.subProjectTable=results.details;
+            		var datatableConfig = {
+        				"name":"simple_datatable",
+        				"extraHeaders":{number:0},
+        				"columns":[
+        					{
+        						"header":"Name",
+        						"property":"accountName",
+        						"order":true,
+        						"group":true,
+        						"type":"text",
+        						"showFilter":false,
+        						//"groupMethod":"collect",
+        						"edit":true,
+        						"hide":true,
+        						"render":"<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+        					},
+        					{
+        						"header":"Account Id",
+        						"property":"accountId",
+        						"order":true,
+        						"group":true,
+        						"type":"text",
+        						"showFilter":false,
+        						//"groupMethod":"collect",
+        						"edit":true,
+        						"hide":true,
+        						"render":"<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+        					},
+        					
+        				],
+        				"edit":{
+        					"active":true,
+        					"columnMode":true
+        				},
+        				"filter":{
+        					"active":true,
+        					"highlight":true,
+        					"columnMode":true
+        				},
+        				"pagination":{
+        					"mode":'local',
+        					numberRecordsPerPageList:[{
+                                number: 10,
+                                clazz: ''
+                            }, {
+                                number: 25,
+                                clazz: ''
+                            }]
+        				},
+        				"order":{
+        					"mode":'local'
+        				},
+        				"remove":{
+        					"active":true,
+        					"mode":'local'
+        				},
+        				"save":{
+        					"active":true,
+        					"mode":'local'
+        				},
+        				"add":{
+        					"active":true,
+        					"showButton":true
+        				},
+        				"group":{
+        					"active":true,
+        				},
+        				"compact":true,
+        				"exportCSV":{
+        					active:true,//Active or not
+        					showButton:true,//Show the export button in the toolbar
+        					delimiter:";"//Set the delimiter
+        				},
+        				"hide":{
+        					"active":true,
+        					"byDefault":["about","name"]
+        				},
+                                        "mouseevents":{
+                                            "active": true,
+                                            "overCallback": function(line, data){
+                                                //console.log("callback mouseover:", line, data);
+                                            },
+                                            "leaveCallback": function(line, data){
+                                                //console.log("callback mouseover:", line, data);
+                                            },
+                                            "clickCallback": function(line,data){
+                                                //console.log("callback select : "+data.name);
+                                            }
+                                        }
+        			};
+        			
+        			var datatableData = [];
+        			datatableData = results.details;
+        			
+        			
+        			$rootScope.datatable = datatable(datatableConfig);
+        			$rootScope.datatable.setData(datatableData);
             }
             $('#subProjectTable').DataTable();
         	$location.path('viewSubProject');
