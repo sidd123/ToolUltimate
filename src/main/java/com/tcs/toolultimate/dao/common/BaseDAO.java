@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.AggregationOutput;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.tcs.toolultimate.config.Constants;
 import com.tcs.toolultimate.controller.UserController;
 
 public class BaseDAO {
@@ -114,6 +116,120 @@ public class BaseDAO {
 		return recordObjects;
 	}
 	
+	public DBObject getMatchAggregrateComponent(Set<String> matchValues,
+			String creatorOrgLevel) {
+		
+		StringBuffer parentOriginFieldId = new StringBuffer("");
+		DBObject match = new BasicDBObject();
+		DBObject inCriteria = new BasicDBObject();
+		DBObject matchField = new BasicDBObject();
+		
+		
+		if (Constants.LEVEL_VALUE_ACOOUNT.equals(creatorOrgLevel)) {
+			parentOriginFieldId.append(Constants.COLUMN_NAME_ACCOUNT_ID);
+		} else if (Constants.LEVEL_VALUE_UMBRELLA.equals(creatorOrgLevel)) {
+			parentOriginFieldId.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS)
+					.append(".").append(Constants.COLUMN_NAME_UMBRELLA_PROJ_ID);
+		} else if (Constants.LEVEL_VALUE_PROJECT.equals(creatorOrgLevel)) {
+			parentOriginFieldId.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS)
+					.append(".").append(Constants.COLUMN_NAME_PROJECTS)
+					.append(".").append(Constants.COLUMN_NAME_PROJ_ID);
+		} else if (Constants.LEVEL_VALUE_SUB_PROJECT.equals(creatorOrgLevel)) {
+			parentOriginFieldId.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS)
+					.append(".").append(Constants.COLUMN_NAME_PROJECTS)
+					.append(".").append(Constants.COLUMN_NAME_SUBPROJECTS)
+					.append(".").append(Constants.COLUMN_NAME_PROJ_ID);
+		}
+
+		
+		inCriteria.put("$in", matchValues);
+		matchField.put(parentOriginFieldId.toString(), inCriteria);
+		
+		match.put("$match", matchField);
+		
+		
+		return match;
+	}
 	
+	public List<DBObject> getUnwindAggregrateComponent(String level) {
+		List<DBObject> pipeline = new ArrayList<DBObject>();
+		StringBuffer unwindStr = null;
+		DBObject unwind = null;
+		
+		if (Constants.LEVEL_VALUE_UMBRELLA.equals(level)) {
+			unwindStr = new StringBuffer("$").append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS);
+			unwind = new BasicDBObject();
+			unwind.put("$unwind", unwindStr.toString() );
+			pipeline.add(unwind);
+			
+		} else if (Constants.LEVEL_VALUE_PROJECT.equals(level)) {
+			
+			unwindStr = new StringBuffer("$").append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS);
+			unwind = new BasicDBObject();
+			unwind.put("$unwind", unwindStr.toString() );
+			pipeline.add(unwind);
+			
+			unwindStr = new StringBuffer("$").append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS).append(".").append(Constants.COLUMN_NAME_PROJECTS);
+			unwind = new BasicDBObject();
+			unwind.put("$unwind", unwindStr.toString() );
+			pipeline.add(unwind);
+			
+			
+		} else if (Constants.LEVEL_VALUE_SUB_PROJECT.equals(level)) {
+			unwindStr = new StringBuffer("$").append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS);
+			unwind = new BasicDBObject();
+			unwind.put("$unwind", unwindStr.toString() );
+			pipeline.add(unwind);
+			
+			unwindStr = new StringBuffer("$").append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS).append(".").append(Constants.COLUMN_NAME_PROJECTS);
+			unwind = new BasicDBObject();
+			unwind.put("$unwind", unwindStr.toString() );
+			pipeline.add(unwind);
+			
+			unwindStr = new StringBuffer("$").append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS).append(".").append(Constants.COLUMN_NAME_PROJECTS).append(".").append(Constants.COLUMN_NAME_SUBPROJECTS);
+			unwind = new BasicDBObject();
+			unwind.put("$unwind", unwindStr.toString() );
+			pipeline.add(unwind);
+		}
+
+		
+		
+		return pipeline;
+	}
+	
+	public DBObject getProjectAggregateComponent(String level) {
+		DBObject project = new BasicDBObject();
+		DBObject wrapperProject = new BasicDBObject();
+
+		StringBuffer projectonStr = null;
+
+		project.put("_id", 0);
+
+		if (Constants.LEVEL_VALUE_UMBRELLA.equals(level)) {
+			projectonStr = new StringBuffer("$")
+					.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS);
+			project.put(Constants.COLUMN_NAME_UMBRELLA_PROJECTS,
+					projectonStr.toString());
+
+		} else if (Constants.LEVEL_VALUE_PROJECT.equals(level)) {
+
+			projectonStr = new StringBuffer("$")
+					.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS)
+					.append(".").append(Constants.COLUMN_NAME_PROJECTS);
+			project.put(Constants.COLUMN_NAME_PROJECTS, projectonStr.toString());
+
+		} else if (Constants.LEVEL_VALUE_SUB_PROJECT.equals(level)) {
+			projectonStr = new StringBuffer("$")
+					.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS)
+					.append(".").append(Constants.COLUMN_NAME_PROJECTS)
+					.append(".").append(Constants.COLUMN_NAME_SUBPROJECTS);
+			project.put(Constants.COLUMN_NAME_SUBPROJECTS,
+					projectonStr.toString());
+		}
+
+		wrapperProject.put("$project", project);
+
+		return wrapperProject;
+	}
 
 }

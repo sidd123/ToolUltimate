@@ -22,6 +22,9 @@ public class Constants {
 	public static final String COLUMN_NAME_LEVEL_ID= "levelId";
 	public static final String COLUMN_NAME_ACCOUNT_CREATED_BY = "accountCreatedBy";
 	public static final String COLUMN_NAME_ACCOUNT_CREATED_ON = "accountCreatedOn";
+	public static final String COLUMN_NAME_UMBRELLA_PROJECTS = "umbrellaProjects";
+	public static final String COLUMN_NAME_PROJECTS = "projects";
+	public static final String COLUMN_NAME_SUBPROJECTS = "subProjects";
 	public static final String STATUS = "status";
 	public static final String SUCCESS = "success";
 	public static final String FAIL = "fail";

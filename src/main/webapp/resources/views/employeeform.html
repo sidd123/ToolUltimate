@@ -42,7 +42,26 @@
                                <label class="col-sm-5 control-label no-padding-right" for="name">Select Role</label>
 		                         <div class="col-sm-7">
 		                             <span class="block input-icon input-icon-right">
-		                             <select ng-options="role as role.role for role in rolesdropdown" class="form-control" placeholder="Role" name="selectedrole" ng-model="role.roleId" ><option value="">-- Select Role --</option></select>
+		                             	<select ng-options="role as role.role for role in rolesdropdown" class="form-control" placeholder="Role" name="selectedrole" ng-model="role.roleId" ng-change="viewLevels(role.roleId)"><option value="">-- Select Role --</option></select>
+		                                 
+		                             </span>
+		                         </div>
+                            </div>
+                            <div class="form-group">
+                               <label class="col-sm-5 control-label no-padding-right" for="name">Select Level</label>
+		                         <div class="col-sm-7">
+		                             <span class="block input-icon input-icon-right">
+		                             	<select ng-options="level as level.level for level in levelsdropdown" class="form-control" placeholder="Level" name="selectedlevel" ng-model="level.levelId" ng-change="viewOrigins(level.levelId)"><option value="">-- Select Level --</option></select>
+		                                 
+		                             </span>
+		                         </div>
+                            </div>
+                            
+                            <div class="form-group">
+                               <label class="col-sm-5 control-label no-padding-right" for="name">Select Level</label>
+		                         <div class="col-sm-7">
+		                             <span class="block input-icon input-icon-right">
+		                             	<select ng-options="level as level.level for level in levelsdropdown" class="form-control" placeholder="Level" name="selectedlevel" ng-model="level.levelId"><option value="">-- Select Level --</option></select>
 		                                 
 		                             </span>
 		                         </div>

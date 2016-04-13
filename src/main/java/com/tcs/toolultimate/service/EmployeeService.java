@@ -1,21 +1,33 @@
 package com.tcs.toolultimate.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.AggregationOutput;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.tcs.toolultimate.config.Constants;
 import com.tcs.toolultimate.dao.common.BaseDAO;
 import com.tcs.toolultimate.vo.Account;
 import com.tcs.toolultimate.vo.Employee;
-import com.tcs.toolultimate.vo.EmployeeHierarchyVO;
 import com.tcs.toolultimate.vo.Level;
 import com.tcs.toolultimate.vo.Origin;
 import com.tcs.toolultimate.vo.Project;
@@ -23,6 +35,7 @@ import com.tcs.toolultimate.vo.Role;
 import com.tcs.toolultimate.vo.SubProjects;
 import com.tcs.toolultimate.vo.UmbrellaProject;
 import com.tcs.toolultimate.vo.UserLogin;
+import com.tcs.toolultimate.vo.UserRoles;
 
 @Service("EmployeeService")
 public class EmployeeService {
@@ -60,27 +73,38 @@ public class EmployeeService {
 	}
 	
 	
-	private Employee mergeEmployeeRecordsforSame(List<Employee> employeeRecords){
+	private Employee mergeEmployeeRecordsforSame(List<Employee> employeeRecords) {
 		Employee employee = null;
-		EmployeeHierarchyVO orgVO = null;
-	
-		
-		if(employeeRecords != null && employeeRecords.size() >0){
+
+		if (employeeRecords != null && employeeRecords.size() > 0) {
 			employee = employeeRecords.get(0);
-			List<EmployeeHierarchyVO> allOrgs = new ArrayList<EmployeeHierarchyVO>();
-			
-			for(Employee emp: employeeRecords){
-				orgVO = new EmployeeHierarchyVO();
-				orgVO.setRoleId(emp.getRoleId());
-				orgVO.setRole(emp.getRole());
-				orgVO.setLevel(emp.getLevel());
-				/*orgVO.setOriginId(emp.getOriginId());
-				orgVO.setOriginName(emp.getOriginName());*/
-				allOrgs.add(orgVO);
+
+			UserRoles roles = new UserRoles();
+			employee.setUserRoles(roles);
+
+			roles.setRole(employee.getRole());
+			roles.setRoleId(employee.getRoleId());
+			roles.setLevel(employee.getLevel());
+
+			Set<String> orignIds = new HashSet<String>();
+
+			for (Employee emp : employeeRecords) {
+				if (Constants.LEVEL_VALUE_ACOOUNT.equals(roles.getLevel())) {
+					orignIds.add(emp.getAccountId());
+				} else if (Constants.LEVEL_VALUE_UMBRELLA.equals(roles
+						.getLevel())) {
+					orignIds.add(emp.getUmbrellaProjectId());
+				} else if (Constants.LEVEL_VALUE_PROJECT.equals(roles
+						.getLevel())) {
+					orignIds.add(emp.getProjectId());
+				} else if (Constants.LEVEL_VALUE_SUB_PROJECT.equals(roles
+						.getLevel())) {
+					orignIds.add(emp.getSubProjectId());
+				}
 			}
-			/*employee.setAllOrgs(allOrgs);*/
+			roles.setOriginIds(orignIds);
 		}
-		
+
 		return employee;
 	}
 	
@@ -113,84 +137,74 @@ public class EmployeeService {
 	}
 	
 	
-	public List<Origin> getAllOrignis(String selectedlevel, List<String> creatorOrgId,String creatorOrgLevel){
+	public List<Origin> getAllOrignis(String selectedlevel,
+			Set<String> creatorOrgId, String creatorOrgLevel) {
 		List<Origin> origins = null;
-		String originFieldId = "";
-		String parentOriginFieldId = "";
-		Class<?> objectType = null;
+		String originFieldName = "";
+		ObjectMapper mapper = new ObjectMapper();
 		Origin origin = null;
-		StringBuffer orgStr = new StringBuffer("");
-		
-		if (Constants.LEVEL_VALUE_ACOOUNT.equals(selectedlevel)) {
-			originFieldId =  Constants.COLUMN_NAME_ACCOUNT_ID;
-			objectType = Account.class;
-		} else if (Constants.LEVEL_VALUE_UMBRELLA.equals(selectedlevel)) {
-			originFieldId =  Constants.COLUMN_NAME_UMBRELLA_PROJ_ID;
-			parentOriginFieldId = Constants.COLUMN_NAME_ACCOUNT_ID;
-			objectType = UmbrellaProject.class;
-		} else if (Constants.LEVEL_VALUE_PROJECT.equals(selectedlevel)) {
-			originFieldId =  Constants.COLUMN_NAME_PROJ_ID;
-			parentOriginFieldId = Constants.COLUMN_NAME_UMBRELLA_PROJ_ID;
-			objectType = Project.class;
-		} else if (Constants.LEVEL_VALUE_SUB_PROJECT.equals(selectedlevel)) {
-			originFieldId =  Constants.COLUMN_NAME_SUB_PROJ_ID;
-			parentOriginFieldId = Constants.COLUMN_NAME_PROJ_ID;
-			objectType = SubProjects.class;
-		}
-		
-		if(Constants.LEVEL_VALUE_ACOOUNT.equals(creatorOrgLevel)){
-			parentOriginFieldId = Constants.COLUMN_NAME_ACCOUNT_ID;
-		} else if (Constants.LEVEL_VALUE_UMBRELLA.equals(creatorOrgLevel)) {
-			parentOriginFieldId = Constants.COLUMN_NAME_UMBRELLA_PROJ_ID;
-		}else if (Constants.LEVEL_VALUE_PROJECT.equals(creatorOrgLevel)) {
-			parentOriginFieldId = Constants.COLUMN_NAME_PROJ_ID;
-		}else if (Constants.LEVEL_VALUE_SUB_PROJECT.equals(creatorOrgLevel)) {
-			parentOriginFieldId = Constants.COLUMN_NAME_SUB_PROJ_ID;
-		}
-		
-		Map<String,String> matchCriteria = new HashMap<String,String>();
-		if(creatorOrgId != null && creatorOrgId.size()>0){
-			for(String orgId : creatorOrgId) {
-				if(orgStr.length() == 0) {
-					orgStr.append(orgId);
-				}else {
-					orgStr.append(",").append(orgId);
-				}
-			}
-		}
-		matchCriteria.put(parentOriginFieldId, orgStr.toString());
 		
 		
-		List<?> results = baseDAO.fetchDistinctRecords(Constants.ACCOUNT_STORE_NAME, matchCriteria, originFieldId, objectType);
+		List<DBObject> pipeline = baseDAO.getUnwindAggregrateComponent(selectedlevel);
 		
-		if(results != null && results.size()>0){
+		DBObject match = baseDAO.getMatchAggregrateComponent(creatorOrgId,creatorOrgLevel);
+		
+		pipeline.add(match);
+		
+		DBObject projection  =baseDAO.getProjectAggregateComponent(selectedlevel);
+		
+		pipeline.add(projection);
+		
+		AggregationOutput output = mongoTemplate.getCollection(Constants.ULTIMATEDOCUMENT_STORE_NAME).aggregate(pipeline);
+		
+		Iterable<DBObject> results = output.results();
+		
+		if(results.iterator().hasNext()){
 			origins = new ArrayList<Origin>();
-			for(Object o  : results){
-				if(o instanceof Account){
+		}
+		
+		try {
+			for (DBObject record : results) {
+				
+
+				if (Constants.LEVEL_VALUE_UMBRELLA.equals(selectedlevel)) {
+					originFieldName = Constants.COLUMN_NAME_UMBRELLA_PROJECTS;
+					UmbrellaProject project = mapper.readValue(record.get(originFieldName).toString(), UmbrellaProject.class);
 					origin = new Origin();
-					origin.setOriginId(((Account) o).getAccountId());
-					origin.setOriginName(((Account) o).getAccountName());
-				}else if(o instanceof UmbrellaProject){
+					origin.setOriginId(project.getUmbrellaProjectId());
+					origin.setOriginName(project.getUmbrellaProjectName());
+				}else if (Constants.LEVEL_VALUE_PROJECT.equals(selectedlevel)) {
+					originFieldName = Constants.COLUMN_NAME_PROJECTS;
+					Project project = mapper.readValue(record.get(originFieldName).toString(), Project.class);
 					origin = new Origin();
-					origin.setOriginId(((UmbrellaProject) o).getUmbrellaProjectId());
-					origin.setOriginName(((UmbrellaProject) o).getUmbrellaProjectName());
-				}else if(o instanceof Project){
+					origin.setOriginId(project.getProjectId());
+					origin.setOriginName(project.getProjectName());
+					
+				}else if (Constants.LEVEL_VALUE_SUB_PROJECT.equals(selectedlevel)) {
+					originFieldName = Constants.COLUMN_NAME_SUBPROJECTS;
+					SubProjects project = mapper.readValue(record.get(originFieldName).toString(), SubProjects.class);
+					
 					origin = new Origin();
-					origin.setOriginId(((Project) o).getProjectId());
-					origin.setOriginName(((Project) o).getProjectName());
-				}else if(o instanceof SubProjects){
-					origin = new Origin();
-					origin.setOriginId(((SubProjects) o).getSubProjectId());
-					origin.setOriginName(((SubProjects) o).getSubProjectName());
+					origin.setOriginId(project.getSubProjectId());
+					origin.setOriginName(project.getSubProjectName());
+					
 				}
 				
 				origins.add(origin);
+				
+				
 			}
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		
+
 		return origins;
 	}
+	
 }
 
 

@@ -9,6 +9,32 @@ app.controller('employeeCtrl', function ($scope, $rootScope, $routeParams, $loca
              }
             $location.path('addEmployee');
         });
-    };    
+    };   
+    
+    $scope.viewLevels = function (role) {
+        Data.post('viewLevels',role).then(function (results) {
+          
+        	 Data.toast(results);
+             if (results.status == "success") {
+             	$rootScope.levelsdropdown = results.levels;
+             }
+            $location.path('addEmployee');
+        });
+    }; 
+    
+    
+    $scope.viewOrigins = function (level) {
+        Data.post('viewOrigins',level).then(function (results) {
+          
+        	 Data.toast(results);
+             if (results.status == "success") {
+             	$rootScope.ORIGIN_DROPDOWN_VALUES = results.origins;
+             	$rootScope.ORIGIN_LEVEL = results.originLevel;
+             }
+            $location.path('addEmployee');
+        });
+    };
+    
+    
     
 });

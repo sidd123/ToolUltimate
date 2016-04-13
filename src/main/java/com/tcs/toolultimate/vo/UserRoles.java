@@ -1,6 +1,7 @@
 package com.tcs.toolultimate.vo;
 
-import java.util.List;
+
+import java.util.Set;
 
 
 public class UserRoles {
@@ -10,18 +11,19 @@ public class UserRoles {
 
 	private String level;
 	
-	private List<String> originIds;
+	private Set<String> originIds;
 	
 	/**
 	 * @return the originIds
 	 */
-	public List<String> getOriginIds() {
+	public Set<String> getOriginIds() {
 		return originIds;
 	}
 	/**
 	 * @param originIds the originIds to set
 	 */
-	public void setOriginIds(List<String> originIds) {
+	public void setOriginIds(Set<String> originIds) {
+>>>>>>> dff79e0 Changes for Data structire change
 		this.originIds = originIds;
 	}
 	/**
