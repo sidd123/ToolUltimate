@@ -39,6 +39,8 @@ public class AccountController {
 		Map<String, Object> finalResults = null;
 		List<Account> fetchAllAcounts = accountService.fetchAllAcounts();
 		try {
+			helper.setStartIndex(searchAttribute);
+			helper.setLastIndex(searchAttribute);
 			finalResults = helper.getFinalResults(fetchAllAcounts, searchAttribute);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			logger.error("Error occured in method viewAccounts: " + e);

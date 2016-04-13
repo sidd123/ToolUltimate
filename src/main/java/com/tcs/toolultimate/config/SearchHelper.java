@@ -20,10 +20,10 @@ public class SearchHelper {
 	@Autowired
 	SearchComparator comparator;
 
-	public SearchHelper(Search searchAttribute) {
+	/*public SearchHelper(Search searchAttribute) {
 		setStartIndex(searchAttribute);
 		setLastIndex(searchAttribute);
-	}
+	}*/
 
 	public Map<String, Object> getFinalResults(List<?> searchResults, Search searchAttribute) throws IllegalArgumentException, IllegalAccessException{
 		if(Utility.isEmptyOrNull(searchResults)){			
@@ -39,6 +39,8 @@ public class SearchHelper {
 			return emptyResult(searchAttribute);
 		}		
 		
+		comparator.setSortField(searchAttribute.getSortByCol());
+		comparator.setSortingOrder(searchAttribute.getSortByDir());
 		Collections.sort(searchResults, comparator);
 		
 		searchResults.subList(startIndex, lastIndex > searchResults.size() ? searchResults.size() : lastIndex);
@@ -105,11 +107,4 @@ public class SearchHelper {
 	public void setLastIndex(Search searchAttribute) {
 		this.lastIndex = searchAttribute.getPageIndex() * searchAttribute.getItemPerPage();
 	}
-	
-	@Bean
-	SearchComparator getComparator(String sortField, String sortingOrder){
-		return new SearchComparator(sortField, sortingOrder);
-	}
-	
-
 }

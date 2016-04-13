@@ -39,7 +39,7 @@ public class AccountService {
 	}
 	
 	/**
-	 * This method is used to update account
+	 * This method is used to save or update account
 	 * 
 	 * @param account
 	 */
