@@ -1,0 +1,135 @@
+<div ng-include="'resources/views/menu.html'"></div>
+<div id="fh5co-features" data-section="design">
+   <div class="container">
+      <div class="row">
+         <legend>Add Sub Projects</legend>
+         <!-- Header tool code start-->
+         <div class="tool"
+				style="border: 1px solid; border-color: skyblue; height: 40px;">
+				<a href="#" ng-click="viewAccount()" style="margin-top: 2px; margin-left: 5px;"
+					class="list-btn btn btn-default"><span class="glyphicon glyphicon-th-list"></span>
+					List</a> <a href="" style="margin-top: 2px;" class="new-btn btn btn-default"  disabled><span 
+					class="glyphicon glyphicon-plus"></span>
+					New</a> <a href="#" style="margin-top: 2px;" class="view-btn btn btn-default"  disabled><span
+					class="glyphicon glyphicon-eye-open"></span> View</a> <input
+					id="searchInput" name="searchInput" class="search-text"  disabled placeholder="Search"
+					type="search">
+				<button class="view-btn btn btn-default btn-sm" type="button"  disabled>
+					<span class="glyphicon glyphicon-search"></span> <span class="sr-only">Search</span>
+				</button>
+				<div class="btn-group" >
+					<a data-toggle="dropdown"
+						class="glyphicon glyphicon-sort btn btn-default dropdown-toggle" disabled>
+						Sort&nbsp;<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#"><span
+								class="glyphicon glyphicon-sort-by-attributes" disabled></span> Account Id</a></li>
+						<li><a href="#"><span
+								class="glyphicon glyphicon-sort-by-attributes-alt" disabled></span> Account
+								Id</a></li>
+						<li class="divider"></li>
+						<li><a href="#"><span
+								class="glyphicon glyphicon-sort-by-alphabet" disabled></span> Account Name</a></li>
+						<li><a href="#"><span
+								class="glyphicon glyphicon-sort-by-alphabet-alt" disabled></span> Account
+								Name</a></li>
+					</ul>
+				</div>
+				<div class="btn-group">
+					<a data-toggle="dropdown"
+						class="glyphicon glyphicon-list-alt btn btn-default dropdown-toggle" disabled>
+						Items&nbsp;<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#"><span class="glyphicon glyphicon-ok-circle" disabled></span>
+								20</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-ok-circle" disabled></span>
+								50</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-ok-circle" disabled></span>
+								100</a></li>
+					</ul>
+				</div>
+				<div class="btn-group">
+					<a data-toggle="dropdown"
+						class="glyphicon glyphicon-list btn btn-default dropdown-toggle" disabled>
+						Actions&nbsp;<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#"><span
+								class="glyphicon glyphicon-download-alt" disabled></span> Download</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-import" disabled></span>
+								Import</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-print" disabled></span>
+								Print</a></li>
+					</ul>
+				</div>
+				<a href="#" ng-click="addSubProject()" style="margin-top: 2px;" class="btn btn-default"><span
+					class="glyphicon glyphicon-refresh"></span> Refresh</a>
+			</div>
+			<br/>
+         <!-- Header tool code end -->
+         	<form name="subProjectForm" class="form-horizontal" role="form">
+                 	 <div class="form-group">
+                 	
+                         <label class="col-sm-5 control-label no-padding-right" for="name">Account Name(ID)</label>
+                         <div class="col-sm-7">
+                             <span class="block input-icon input-icon-right">
+                             <select ng-options="account.accountName for account in accountDetailsTable" class="form-control" placeholder="Account Name" name="accountName" ng-model="subProject.accountId" ng-change="viewUmProject(subProject.accountId)"><option value="">-- Choose Accoount --</option></select>
+                                 
+                             </span>
+                         </div>
+                 
+                     </div>
+                     
+                     <div class="form-group">
+                         <label class="col-sm-5 control-label no-padding-right" for="uName">Umbrella Project</label>
+                         <div class="col-sm-7">
+                             <span class="block input-icon input-icon-right">
+                                 <select ng-options="uProject.umbrellaProjectName for uProject in umbrellaDetailsTable" class="form-control" placeholder="Umbrella Project Name" name="umbrellaProject" ng-model="subProject.umbrellaProjectId"><option value="">-- Choose Umbrella Project --</option></select>
+                     
+                             </span>
+                         </div>
+                     </div>
+                     
+                     <div class="form-group">
+                         <label class="col-sm-5 control-label no-padding-right" for="pName">Project</label>
+                         <div class="col-sm-7">
+                             <span class="block input-icon input-icon-right">
+                                 <select ng-options="project.projectName for project in umbrellaDetailsTable" class="form-control" placeholder="Project Name" name="projectName" ng-model="subProject.projectName"><option value="">-- Choose Project --</option></select>
+                                 
+                             </span>
+                         </div>
+                     </div>
+                    
+                     <div class="form-group">
+                         <label class="col-sm-5 control-label no-padding-right" for="email">Sub Project Name</label>
+                         <div class="col-sm-7">
+                             <span class="block input-icon input-icon-right">
+                                 <input type="text" class="form-control" placeholder="Sub Project Name" name="subProjectName" ng-model="subProject.subProjectName" focus required/>
+                             </span>
+                         </div>
+                     </div>
+                     
+                     <div class="form-group">
+                         <label class="col-sm-5 control-label no-padding-right" for="sub_project_id">Sub Project ID</label>
+                         <div class="col-sm-7">
+                             <span class="block input-icon input-icon-right">
+			<input type="text" class="form-control" name = "sub_project_id" placeholder="Sub Project Id" ng-model="subProject.subProjectId" required/>
+		</span>
+                         </div>
+                     </div>
+
+                     <div class="form-group">
+                         <span class="lbl col-sm-5"> </span>
+                         <div class="col-sm-7">
+                             <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" ng-click="saveSubProject(subProject)">
+                                 Save
+                             </button>
+                         </div>
+                     </div>
+                 </form>
+      </div>
+   </div>
+</div>
+<div ng-include="'resources/views/footer.html'"></div>
