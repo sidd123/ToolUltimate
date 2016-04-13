@@ -1,11 +1,14 @@
 package com.tcs.toolultimate.config;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Comparator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SearchComparator implements Comparator<Object> {
 
 	private static final Logger logger = LoggerFactory
@@ -55,14 +58,23 @@ public class SearchComparator implements Comparator<Object> {
 		int compareTo = 0;
 		try {
 			Field declaredField1 = o1.getClass().getDeclaredField(sortField);
+			if(!declaredField1.isAccessible()){
+				declaredField1.setAccessible(true);
+			}
+			
 			Field declaredField2 = o2.getClass().getDeclaredField(sortField);
+			if(!declaredField2.isAccessible()){
+				declaredField2.setAccessible(true);
+			}
 			String objectValue1 = (String) declaredField1.get(o1);
 			String objectValue2 = (String) declaredField2.get(o2);
-			if (sortingOrder
-					.equalsIgnoreCase(Constants.SORTING_ORDER_ASCENDING)) {
-				compareTo = objectValue1.compareTo(objectValue2);
-			} else {
-				compareTo = objectValue2.compareTo(objectValue1);
+			if(!Utility.isEmptyOrNull(objectValue1) && !Utility.isEmptyOrNull(objectValue2)){
+				if (sortingOrder
+						.equalsIgnoreCase(Constants.SORTING_ORDER_ASCENDING)) {
+					compareTo = objectValue1.compareTo(objectValue2);
+				} else {
+					compareTo = objectValue2.compareTo(objectValue1);
+				}
 			}
 		} catch (NoSuchFieldException | SecurityException
 				| IllegalArgumentException | IllegalAccessException e) {

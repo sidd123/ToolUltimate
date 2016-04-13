@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.tcs.toolultimate.vo.Search;
 
+@Component
 public class SearchHelper {
 	
 	private int startIndex = 0;	
@@ -57,7 +59,10 @@ public class SearchHelper {
 		final List<Object> matchedRows = new ArrayList<Object>();
 		for (Object object : searchResults) {
 			Field[] fields = object.getClass().getDeclaredFields();
-			for (Field field : fields) {					
+			for (Field field : fields) {	
+				if(!field.isAccessible()){
+					field.setAccessible(true);
+				}
 				String fieldValue = String.valueOf(field.get(object));
 				if(fieldValue.contains(searchAttribute.getQuickSearchText())){
 					matchedRows.add(object);
@@ -90,7 +95,7 @@ public class SearchHelper {
 	 * @param startIndex the startIndex to set
 	 */
 	public void setStartIndex(Search searchAttribute) {
-		this.startIndex = searchAttribute.getPageIndex() -1 * searchAttribute.getItemPerPage();
+		this.startIndex = (searchAttribute.getPageIndex() -1) * searchAttribute.getItemPerPage();
 	}
 
 	/**
