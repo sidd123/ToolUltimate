@@ -1,5 +1,10 @@
+
+
+
+
+
 <!DOCTYPE html>
-<html lang="en" ng-app="myApp">
+<html lang="en" data-ng-app="myApp">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,39 +30,6 @@
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		<!-- Libs -->
-		<script src="resources/js/angular.min.js"></script>
-		<script src="resources/js/angular-route.min.js"></script>
-		<script src="resources/js/angular-animate.min.js" ></script>
-		<script src="resources/js/toaster.js"></script>
-		<script src="resources/js/jquery-2.2.2.js"></script>
-		<script src="resources/js/app/app.js"></script>
-		<script src="resources/js/app/data.js"></script>
-		<script src="resources/js/app/directives.js"></script>
-		<script src="resources/js/app/authCtrl.js"></script>
-		<script src="resources/js/app/accountCtrl.js"></script>
-		<script src="resources/js/app/employeeCtrl.js"></script>
-		<!-- jQuery -->
-		<script src="resources/js/jquery.min.js"></script>
-		<!-- jQuery Easing -->
-		<script src="resources/js/jquery.easing.1.3.js"></script>
-		<!-- Bootstrap -->
-		<script src="resources/js/bootstrap.min.js"></script>
-		<!-- Waypoints -->
-		<script src="resources/js/jquery.waypoints.min.js"></script>
-		<!-- Magnific Popup -->
-		<script src="resources/js/jquery.magnific-popup.min.js"></script>
-		<!-- Owl Carousel -->
-		<script src="resources/js/owl.carousel.min.js"></script>
-		<!-- toCount -->
-		<script src="resources/js/jquery.countTo.js"></script>
-		<!-- Main JS -->
-		<script src="resources/js/main.js"></script>
-		<script src="resources/js/jquery.dataTables.min.js"></script>
-		<script src="resources/js/dataTables.bootstrap.min.js"></script>
-		<script src="chosen.jquery.min.js"></script>
-		<!-- <script src="resources/js/lib.min.js"></script> -->
-		<script src="resources/js/filter.js"></script>		
     </head>
 
 	<body class="scrolled" style="">
@@ -83,5 +55,5 @@
 	<script src="resources/js/app/directives.js"></script>
 	<script src="resources/js/app/authCtrl.js"></script>
 	<script src="resources/js/app/accountCtrl.js"></script>
+	<script src="resources/js/app/employeeCtrl.js"></script>
 </html>
-
