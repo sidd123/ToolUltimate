@@ -42,14 +42,21 @@ app.config([ '$routeProvider', function($routeProvider) {
 								Data.get('sessionexists').then(function (results) {
 					                if (results == "true") {
 					                	$rootScope.loggedInUser = true;
+					                	 var nextUrl = next.$$route.originalPath;
+					                	 if(nextUrl == '/addEmployee') {
+					                		 Data.get('addEmployee').then(function (results) {
+					                	          
+					                        	 Data.toast(results);
+					                             if (results.status == "success") {
+					                             	$rootScope.rolesdropdown = results.roles;
+					                             }
+					                            $location.path('addEmployee');
+					                        });
+					                	 }
+					                	 
 					                } else {
 					                	$rootScope.loggedInUser = false;
-					                    var nextUrl = next.$$route.originalPath;
-					                    if (nextUrl == '/signup' || nextUrl == '/login') {
-		
-					                    } else {
-					                        $location.path("/login");
-					                    }
+					                	$location.path("/login");
 					                }
 					            });
 								

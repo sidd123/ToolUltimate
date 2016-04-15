@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -74,7 +75,8 @@ public class UserController {
 	
 	@RequestMapping(value="/sessionexists")
 	public @ResponseBody
-	String checkSessionExists(HttpSession session) throws IOException {
+	String checkSessionExists(HttpServletRequest request, HttpSession session) throws IOException {
+		
 		if(session.getAttribute("loggedInUser") != null){
 			return "true";
 		}else {
