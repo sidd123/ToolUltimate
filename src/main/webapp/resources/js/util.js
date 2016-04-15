@@ -1,3 +1,14 @@
+var viewHeaderLevel = {
+		account: 'View All Accounts',
+		umbrellaProject: 'View All Umbrella Projects',
+		project: 'View All Projects',
+		subProject: 'View All Sub Projects'			
+};
+
+var status = {
+		success: 'success',
+		fail: 'fail'
+};
 var datatableConfig = {
 	"name": "simple_datatable",
 	"extraHeaders": {
@@ -136,14 +147,13 @@ accountDataTablecolumns = [{
 },{
 	"header": "Counts",
 	"property": "accountId",
-	"order": true,
-	"group": true,
+	"order": false,
+	"group": false,
 	"type": "text",
 	"showFilter": false,
 	//"groupMethod":"collect",
-	"edit": true,
-	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"edit": false,
+	"hide": true
 }];
 
 uProjectDataTablecolumns = [{
@@ -167,7 +177,7 @@ uProjectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Account Name",
 	"property": "accountName",
@@ -189,7 +199,7 @@ uProjectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Umbrella Project Created On",
 	"property": "umbrellaProjectCreatedOn",
@@ -200,7 +210,7 @@ uProjectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Counts",
 	"property": "accountId",
@@ -211,7 +221,7 @@ uProjectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 }];
 
 projectDataTablecolumns = [{
@@ -224,7 +234,7 @@ projectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Project Name",
 	"property": "projectName",
@@ -235,7 +245,7 @@ projectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 }, {
 	"header": "Account Name",
 	"property": "accountName",
@@ -246,7 +256,7 @@ projectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Umbrella Project Name",
 	"property": "umbrellaProjectName",
@@ -257,7 +267,7 @@ projectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Project Created By",
 	"property": "projectCreatedBy",
@@ -268,7 +278,7 @@ projectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Project Created On",
 	"property": "projectCreatedOn",
@@ -279,7 +289,7 @@ projectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Counts",
 	"property": "accountId",
@@ -290,7 +300,7 @@ projectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": false,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 }];
 
 subProjectDataTablecolumns = [{
@@ -303,7 +313,7 @@ subProjectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Sub Project Name",
 	"property": "subProjectName",
@@ -314,7 +324,7 @@ subProjectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Account Name",
 	"property": "accountName",
@@ -325,7 +335,7 @@ subProjectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Umbrella Project Name",
 	"property": "umbrellaProjectName",
@@ -336,7 +346,7 @@ subProjectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Project Name",
 	"property": "projectName",
@@ -347,7 +357,7 @@ subProjectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Project Created By",
 	"property": "projectCreatedBy",
@@ -358,7 +368,7 @@ subProjectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Project Created On",
 	"property": "projectCreatedOn",
@@ -369,7 +379,7 @@ subProjectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": true,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 },{
 	"header": "Counts",
 	"property": "accountId",
@@ -380,5 +390,5 @@ subProjectDataTablecolumns = [{
 	//"groupMethod":"collect",
 	"edit": false,
 	"hide": true,
-	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
+	"render": "<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>"
 }];

@@ -9,7 +9,7 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
 				itemPerPage : 25,
 				requestPath: 'viewAccount',
 				dataTableColumn: accountDataTablecolumns,
-				dataTableHeaderLevel: 'View All Accounts'
+				viewHeaderLevel: viewHeaderLevel.account
 		};
 	    
 		$scope.viewDataFromServer(searchAttribute);
@@ -19,13 +19,13 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
  	   Data.post(searchAttribute.requestPath, searchAttribute).then(function (results) {
              Data.toast(results);
              var datatableData = [];
-  			 if (results.status == "success") {
+  			 if (results.status == status.success) {
              	datatableData = results.details;     			
              }
   			 datatableConfig.columns = searchAttribute.dataTableColumn;
  			 $rootScope.datatable = datatable(datatableConfig);
  			 $rootScope.datatable.setData(datatableData);
- 			 $rootScope.dataTableHeaderLevel = searchAttribute.dataTableHeaderLevel;
+ 			 $rootScope.dataTableHeaderLevel = searchAttribute.viewHeaderLevel;
              $location.path('viewData');
          });
      }; 
@@ -33,7 +33,7 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
     $scope.saveAccount = function (account) {
         Data.post('saveAccount', account).then(function (results) {
             Data.toast(results);
-            if (results.status == "success") {
+            if (results.status == status.success) {
             	$rootScope.accounts=results.details;
             }
             $location.path('viewAccount');
@@ -43,7 +43,7 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
     $scope.editAccount = function (account) {
         Data.post('editAccount', account).then(function (results) {
             Data.toast(results);
-            if (results.status == "success") {
+            if (results.status == status.success) {
             	$rootScope.account=results.details;
             }
             $('#AccountId').disable();
@@ -60,7 +60,8 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
 				sortByDir : 'asc',
 				itemPerPage : 25,
 				requestPath: 'viewSubProject',
-				dataTableColumn: subProjectDataTablecolumns
+				dataTableColumn: subProjectDataTablecolumns,
+				viewHeaderLevel: viewHeaderLevel.subProject
 		};
 	    
 		$scope.viewDataFromServer(searchAttribute);
@@ -75,7 +76,8 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
 				sortByDir : 'asc',
 				itemPerPage : 25,
 				requestPath: 'viewUmbrellaProject',
-				dataTableColumn: uProjectDataTablecolumns
+				dataTableColumn: uProjectDataTablecolumns,
+				viewHeaderLevel: viewHeaderLevel.umbrellaProject
 		};
 	    
 		$scope.viewDataFromServer(searchAttribute);
@@ -89,7 +91,8 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
 				sortByDir : 'asc',
 				itemPerPage : 25,
 				requestPath: 'viewProject',
-				dataTableColumn: projectDataTablecolumns
+				dataTableColumn: projectDataTablecolumns,
+				viewHeaderLevel: viewHeaderLevel.project
 		};
 	    
 		$scope.viewDataFromServer(searchAttribute);
