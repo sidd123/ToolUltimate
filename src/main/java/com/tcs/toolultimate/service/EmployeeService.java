@@ -2,8 +2,10 @@ package com.tcs.toolultimate.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -20,6 +23,7 @@ import com.mongodb.DBObject;
 import com.tcs.toolultimate.config.Constants;
 import com.tcs.toolultimate.dao.common.BaseDAO;
 import com.tcs.toolultimate.vo.Employee;
+import com.tcs.toolultimate.vo.HierarchyVO;
 import com.tcs.toolultimate.vo.Level;
 import com.tcs.toolultimate.vo.Origin;
 import com.tcs.toolultimate.vo.Project;
@@ -40,7 +44,88 @@ public class EmployeeService {
 	BaseDAO baseDAO;
 
 	public void saveEmployee(Employee emp) {
-		mongoTemplate.save(emp);
+
+		List<Employee> records = createAllEmployeeRecordForAllroles(emp);
+		mongoTemplate.remove(
+				new Query().addCriteria(Criteria.where(
+						Constants.COLUMN_NAME_EMPLOYEE_ID).is(
+								emp.getEmployeeId())), Constants.EMPLOYEE_STORE_NAME);
+		for (Employee e : records) {
+			mongoTemplate.save(e);
+		}
+	}
+	
+	public List<Employee> createAllEmployeeRecordForAllroles(Employee emp) {
+		List<Employee> employeeRecords = new ArrayList<Employee>();
+		Employee empl;
+		if (emp.getUserRoles().getOriginIds() != null
+				&& emp.getUserRoles().getOriginIds().size() > 0) {
+			List<HierarchyVO> hierarchies = fetchHierarchyForOrigin(emp
+					.getUserRoles().getOriginIds(), emp.getUserRoles()
+					.getLevel());
+
+			for (HierarchyVO hierarchyVO : hierarchies) {
+				empl = (Employee) emp.clone();
+				empl.setRole(emp.getUserRoles().getRole());
+				empl.setRoleId(emp.getUserRoles().getRoleId());
+				empl.setLevel(emp.getUserRoles().getLevel());
+				empl.setAccountId(hierarchyVO.getAccountId());
+				if (!StringUtils.isEmpty(hierarchyVO.getUmbrellaProjectId())) {
+					empl.setUmbrellaProjectId(hierarchyVO
+							.getUmbrellaProjectId());
+				}
+
+				if (!StringUtils.isEmpty(hierarchyVO.getProjectId())) {
+					empl.setProjectId(hierarchyVO.getProjectId());
+				}
+
+				employeeRecords.add(empl);
+			}
+		} else {
+			employeeRecords.add(emp);
+		}
+
+		return employeeRecords;
+	}
+	
+	
+	public List<HierarchyVO> fetchHierarchyForOrigin(Set<String> originIds, String level){
+		List<HierarchyVO> hierarchyList = new ArrayList<HierarchyVO>();
+		HierarchyVO eachRecord = null;
+		
+		List<DBObject> pipeline = baseDAO.getUnwindAggregrateComponent(level);
+		
+		DBObject match = baseDAO.getMatchAggregrateComponent(originIds,level);
+		
+		pipeline.add(match);
+		
+		DBObject projection  =baseDAO.getProjectionAggregateComponentForHierarchy(level);
+		
+		pipeline.add(projection);
+		
+		AggregationOutput output = mongoTemplate.getCollection(Constants.ULTIMATEDOCUMENT_STORE_NAME).aggregate(pipeline);
+		
+		Iterable<DBObject> results = output.results();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			for (DBObject record : results) {
+				eachRecord = mapper.readValue(record.toString(), HierarchyVO.class);
+				hierarchyList.add(eachRecord);
+			}
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return hierarchyList;
 	}
 
 	/**
@@ -143,7 +228,7 @@ public class EmployeeService {
 		
 		pipeline.add(match);
 		
-		DBObject projection  =baseDAO.getProjectAggregateComponent(selectedlevel);
+		DBObject projection  =baseDAO.getProjectionAggregateComponentForProjects(selectedlevel);
 		
 		pipeline.add(projection);
 		

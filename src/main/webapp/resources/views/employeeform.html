@@ -11,13 +11,13 @@
                            Associate Basic Details
                         </h4>
                         <br/>
-                        <form name="employeeForm" class="form-horizontal" role="form">
+                        <form name="employeeForm" class="form-horizontal">
                         	 <div class="form-group">
-                                <label class="col-sm-5 control-label no-padding-right" for="employee_name">Employee Name</label>
+                                <label class="col-sm-5 control-label no-padding-right" for="employeeName">Associate Name</label>
                                 <div class="col-sm-7">
                                     <span class="block input-icon input-icon-right">
-                                        <input type="text" class="form-control" placeholder="Employee Name" name="employee_name" ng-model="employee.employeeName" focus/>
-                                        <span ng-show="employeeForm.name.$error.employee_name" class="help-inline">Name is not valid</span> 
+                                        <input type="text" class="form-control" name="employeeName" ng-model="employee.employeeName" focus required/>
+                                       	<span ng-show="employeeForm.employeeName.$touched && employeeForm.employeeName.$invalid">Associate name is required.</span>
                                     </span>
                                 </div>
                             </div>
@@ -27,7 +27,7 @@
                                 <label class="col-sm-5 control-label no-padding-right" for="employee_id">Employee ID</label>
                                 <div class="col-sm-7">
                                     <span class="block input-icon input-icon-right">
-										<input type="text" class="form-control" placeholder="Employee ID" name="employee_id" ng-model="employee.employeeId"/>
+										<input type="text" class="form-control" placeholder="Employee ID" name="employeeId"" ng-model="employee.employeeId"/>
 									</span>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                <label class="col-sm-5 control-label no-padding-right" for="name">Select {{originlabel}}</label>
 		                         <div class="col-sm-7">
 		                             <span class="block input-icon input-icon-right">
-		                             	<select ng-options="origin as origin.originName for origin in origins" class="form-control" placeholder="{{originlabel}}" name="selectedOrigin" ng-model="origin.originId"><option value="">-- Select {{originlabel}} --</option></select>
+		                             	<select ng-options="origin as origin.originName for origin in origins" class="form-control" placeholder="{{originlabel}}" name="selectedOrigin" ng-model="origin.originId" multiple="multiple"><option value="">-- Select {{originlabel}} --</option></select>
 
 		                                 
 		                             </span>
@@ -64,176 +64,12 @@
                             </div>
                             
                             
-                           <div style="display:none;" id="additional-details">
-	                            <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="email">Email</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-	                                        <input type="text" class="form-control" placeholder="Email" name="email" ng-model="employee.email" focus/>
-	                                        <span ng-show="signupForm.email.$error.email" class="help-inline">Email is not valid</span> 
-	                                    </span>
-	                                </div>
-	                            </div>
-	                            
-	                            <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="mobile">Mobile Number</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" name = "mobile" placeholder="Mobile" ng-model="employee.mobile" required/>
-											<small class="errorMessage" data-ng-show="signupForm.mobile.$dirty && signupForm.mobile.$invalid"> Enter Mobile.</small>
-										</span>
-	                                </div>
-	                            </div>
-	                           
-	                          
-	                            <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="total_exp">Total Experience</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Total Experience" name="total_exp" ng-model="employee.totalExp" />
-										</span>
-	                                </div>
-	                            </div>
-	                            
-	                             <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="grade">Grade</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Grade" name="grade" ng-model="employee.grade" />
-										</span>
-	                                </div>
-	                            </div>
-	                            
-	                             <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="skill_set">Skill Set</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Skill Set" name="skill_set" ng-model="employee.skillSet" />
-										</span>
-	                                </div>
-	                            </div>
-	                             <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="cubicle_no">Cubicle No</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Cubicle No" name="cubicle_no" ng-model="employee.cubicleNo" />
-										</span>
-	                                </div>
-	                            </div>
-	                             
-	                             <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="building_name">Building Name</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Building Name" name="building_name" ng-model="employee.buildingName" />
-										</span>
-	                                </div>
-	                            </div>
-	                            
-	                             <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="asset_id">Asset ID</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Asset ID" name="asset_id" ng-model="employee.assetId" />
-										</span>
-	                                </div>
-	                            </div>
-	                             <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="project_name">Project Name</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Project Name" name="project_name" ng-model="employee.projectName" />
-										</span>
-	                                </div>
-	                            </div>
-	                            
-	                             <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="status">Status</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Status" name="status" ng-model="employee.status" />
-										</span>
-	                                </div>
-	                            </div>
-	                            
-	                            <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="emergency_contact_name">Emergency Contact Name</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Emergency Contact Name" name="emergency_contact_name" ng-model="employee.emergencyContactName" />
-										</span>
-	                                </div>
-	                            </div>
-	                            
-	                             <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="emergency_contact_number">Emergency Contact Number</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Emergency Contact Number" name="emergency_contact_number" ng-model="employee.emergencyContactNumber" />
-										</span>
-	                                </div>
-	                            </div>
-	                            
-	                             <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="desk_phone">Desk Phone</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Desk Phone" name="desk_phone" ng-model="employee.deskPhone" />
-										</span>
-	                                </div>
-	                            </div>
-	                            
-	                            <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="visa_start_date">Visa Start Date</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Visa Start Date" name="visa_start_date" ng-model="employee.visaStartDate" />
-										</span>
-	                                </div>
-	                            </div>
-	                            
-	                            <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="visa_end_date">Visa End Date</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Visa End Date" name="visa_end_date" ng-model="employee.visaEndDate" />
-										</span>
-	                                </div>
-	                            </div>
-	                            
-	                            
-	                             <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="card_no">Card Number</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Card Number" name="card_no" ng-model="employee.cardNo" />
-										</span>
-	                                </div>
-	                            </div>
-	                            
-	                             <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="current_location">Current Location</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Current Location" name="current_location" ng-model="employee.currentLocation" />
-										</span>
-	                                </div>
-	                            </div>
-	                            
-	                              <div class="form-group">
-	                                <label class="col-sm-5 control-label no-padding-right" for="machine_ip">Machine IP</label>
-	                                <div class="col-sm-7">
-	                                    <span class="block input-icon input-icon-right">
-											<input type="text" class="form-control" placeholder="Machine IP" name="machine_ip" ng-model="employee.machineIp" />
-										</span>
-	                                </div>
-	                            </div>
-                            </div>
+                           
                             
                             <div class="form-group">
                                 <span class="lbl col-sm-5"> </span>
                                 <div class="col-sm-7">
-                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" ng-click="saveEmployee(employee)">
+                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary"  ng-click="saveEmployee(employee,role,level,origin)">
                                         Save
                                     </button>
                                 </div>

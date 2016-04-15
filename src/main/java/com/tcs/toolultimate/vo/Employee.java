@@ -8,7 +8,7 @@ import com.tcs.toolultimate.config.Constants;
 
 
 @Document(collection=Constants.EMPLOYEE_STORE_NAME)
-public class Employee{
+public class Employee implements Cloneable{
 	
 	
 	@Id
@@ -488,6 +488,14 @@ public class Employee{
 	public void setVisaEndDate(String visaEndDate) {
 		this.visaEndDate = visaEndDate;
 	}
-
+	
+	
+	public Object clone(){  
+	    try{  
+	        return super.clone();  
+	    }catch(Exception e){ 
+	        return null; 
+	    }
+	}
 	
 }

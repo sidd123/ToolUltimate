@@ -138,7 +138,7 @@ public class BaseDAO {
 			parentOriginFieldId.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS)
 					.append(".").append(Constants.COLUMN_NAME_PROJECTS)
 					.append(".").append(Constants.COLUMN_NAME_SUBPROJECTS)
-					.append(".").append(Constants.COLUMN_NAME_PROJ_ID);
+					.append(".").append(Constants.COLUMN_NAME_SUB_PROJ_ID);
 		}
 
 		
@@ -197,7 +197,7 @@ public class BaseDAO {
 		return pipeline;
 	}
 	
-	public DBObject getProjectAggregateComponent(String level) {
+	public DBObject getProjectionAggregateComponentForProjects(String level) {
 		DBObject project = new BasicDBObject();
 		DBObject wrapperProject = new BasicDBObject();
 
@@ -224,6 +224,60 @@ public class BaseDAO {
 					.append(".").append(Constants.COLUMN_NAME_PROJECTS)
 					.append(".").append(Constants.COLUMN_NAME_SUBPROJECTS);
 			project.put(Constants.COLUMN_NAME_SUBPROJECTS,
+					projectonStr.toString());
+		}
+
+		wrapperProject.put("$project", project);
+
+		return wrapperProject;
+	}
+	
+	
+	public DBObject getProjectionAggregateComponentForHierarchy(String level) {
+		DBObject project = new BasicDBObject();
+		DBObject wrapperProject = new BasicDBObject();
+
+		StringBuffer projectonStr = null;
+
+		project.put("_id", 0);
+
+		if (Constants.LEVEL_VALUE_UMBRELLA.equals(level)) {
+			projectonStr = new StringBuffer("$")
+					.append(Constants.COLUMN_NAME_ACCOUNT_ID);
+			project.put(Constants.COLUMN_NAME_ACCOUNT_ID,
+					projectonStr.toString());
+
+		} else if (Constants.LEVEL_VALUE_PROJECT.equals(level)) {
+
+			projectonStr = new StringBuffer("$")
+							.append(Constants.COLUMN_NAME_ACCOUNT_ID);
+			project.put(Constants.COLUMN_NAME_ACCOUNT_ID,
+					projectonStr.toString());
+			
+			projectonStr = new StringBuffer("$")
+						.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS).append(".")
+						.append(Constants.COLUMN_NAME_UMBRELLA_PROJ_ID);
+			project.put(Constants.COLUMN_NAME_UMBRELLA_PROJ_ID,
+				projectonStr.toString());
+
+		} else if (Constants.LEVEL_VALUE_SUB_PROJECT.equals(level)) {
+			projectonStr = new StringBuffer("$")
+						.append(Constants.COLUMN_NAME_ACCOUNT_ID);
+			project.put(Constants.COLUMN_NAME_ACCOUNT_ID,
+				projectonStr.toString());
+			
+			projectonStr = new StringBuffer("$")
+					.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS).append(".")
+					.append(Constants.COLUMN_NAME_UMBRELLA_PROJ_ID);
+			project.put(Constants.COLUMN_NAME_UMBRELLA_PROJ_ID,
+					projectonStr.toString());
+			
+			
+			projectonStr = new StringBuffer("$")
+					.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS).append(".")
+					.append(Constants.COLUMN_NAME_PROJECTS).append(".")
+					.append(Constants.COLUMN_NAME_PROJ_ID);
+			project.put(Constants.COLUMN_NAME_PROJ_ID,
 					projectonStr.toString());
 		}
 

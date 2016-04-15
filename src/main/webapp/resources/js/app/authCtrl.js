@@ -13,15 +13,7 @@ app.controller('authCtrl', function ($scope, $rootScope, $routeParams, $location
         });
     };
     
-    $scope.saveEmployee = function (employee) {
-        Data.post('saveemployee',employee).then(function (results) {
-            Data.toast(results);
-            if (results.status == "success") {
-            	 alert('successfully created');
-            	$location.path('dashboard');
-            }
-        });
-    };
+   
     
     $scope.signup = {email:'',password:'',name:'',phone:'',address:''};
     $scope.signUp = function (customer) {

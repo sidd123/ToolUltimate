@@ -36,6 +36,32 @@ app.controller('employeeCtrl', function ($scope, $rootScope, $routeParams, $loca
         });
     };
     
+    $scope.saveEmployee = function (employee,role,level,origin) {
+    	var roleObj = role.roleId;
+    	var levelObj = level.levelId;
+    	var originObj = origin.originId;
+    	
+    	employee.userRoles = {};
+    	employee.userRoles.role = roleObj.role;
+    	employee.userRoles.roleId = roleObj.roleId;
+    	employee.userRoles.level = levelObj.level;
+    	employee.userRoles.originIds = [];
+    	
+    	for(var count in originObj){
+    		employee.userRoles.originIds.push(originObj[count].originId);
+    	}
+    	
+    	
+    	Data.post('saveemployee',employee).then(function (results) {
+            Data.toast(results);
+            if (results.status == "success") {
+            	 alert('successfully created');
+            	$location.path('dashboard');
+            }
+        });
+    	
+    };
+    
     
     
 });

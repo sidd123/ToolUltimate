@@ -54,4 +54,5 @@ public class Constants {
 	public static final String ORIGIN_VALUE_SUB_PROJ = "Sub-Project";
 	public static final String DATEFORMAT_WITH_DATE_AND_TIME = "yyyy-MM-dd HH:mm:ss";
 	public static final String DATEFORMAT_WITH_ONLY_DATE = "yyyy-MM-dd";
+	public static final String COLUMN_NAME_EMPLOYEE_ID = "employeeId";
 }
