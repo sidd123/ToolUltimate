@@ -1,22 +1,34 @@
-app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
+app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data, datatable) {
     //initially set those objects to null to avoid undefined error
-	var searchAttribute = {
-			quickSearchText: 'DR', 
-			pageIndex: 1,
-			sortByCol : 'accountName',
-			sortByDir : 'asc',
-			itemPerPage : 25
-	};
-    $scope.viewAccount = function () {
-	  
-	   Data.post('viewAccount', searchAttribute).then(function (results) {
-            Data.toast(results);
-            if (results.status == "success") {
-            	$rootScope.accounts=results.details;
-            }
-            $location.path('viewAccount');
-        });
-    };    
+	$scope.viewAccount = function () {  
+		var searchAttribute = {
+				quickSearchText: 'DR', 
+				pageIndex: 1,
+				sortByCol : 'accountName',
+				sortByDir : 'asc',
+				itemPerPage : 25,
+				requestPath: 'viewAccount',
+				dataTableColumn: accountDataTablecolumns,
+				dataTableHeaderLevel: 'View All Accounts'
+		};
+	    
+		$scope.viewDataFromServer(searchAttribute);
+    };
+    
+    $scope.viewDataFromServer = function (searchAttribute) {    	
+ 	   Data.post(searchAttribute.requestPath, searchAttribute).then(function (results) {
+             Data.toast(results);
+             var datatableData = [];
+  			 if (results.status == "success") {
+             	datatableData = results.details;     			
+             }
+  			 datatableConfig.columns = searchAttribute.dataTableColumn;
+ 			 $rootScope.datatable = datatable(datatableConfig);
+ 			 $rootScope.datatable.setData(datatableData);
+ 			 $rootScope.dataTableHeaderLevel = searchAttribute.dataTableHeaderLevel;
+             $location.path('viewData');
+         });
+     }; 
     
     $scope.saveAccount = function (account) {
         Data.post('saveAccount', account).then(function (results) {
@@ -24,8 +36,7 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
             if (results.status == "success") {
             	$rootScope.accounts=results.details;
             }
-            $('#accounts').DataTable();
-        	$location.path('viewAccount');
+            $location.path('viewAccount');
         });
     };  
     
@@ -41,109 +52,46 @@ app.controller('accountCtrl', function ($scope, $rootScope, $routeParams, $locat
     };
     
     $scope.viewSubProject = function(){
-    	Data.post('viewSubProject').then(function (results) {
-            Data.toast(results);
-            if (results.status == "success") {
-            		var datatableConfig = {
-        				"name":"simple_datatable",
-        				"extraHeaders":{number:0},
-        				"columns":[
-        					{
-        						"header":"Name",
-        						"property":"accountName",
-        						"order":true,
-        						"group":true,
-        						"type":"text",
-        						"showFilter":false,
-        						//"groupMethod":"collect",
-        						"edit":true,
-        						"hide":true,
-        						"render":"<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
-        					},
-        					{
-        						"header":"Account Id",
-        						"property":"accountId",
-        						"order":true,
-        						"group":true,
-        						"type":"text",
-        						"showFilter":false,
-        						//"groupMethod":"collect",
-        						"edit":true,
-        						"hide":true,
-        						"render":"<a target='blank' ng-href='{{cellValue}}'>{{cellValue}}</a>",
-        					},
-        					
-        				],
-        				"edit":{
-        					"active":true,
-        					"columnMode":true
-        				},
-        				"filter":{
-        					"active":true,
-        					"highlight":true,
-        					"columnMode":true
-        				},
-        				"pagination":{
-        					"mode":'local',
-        					numberRecordsPerPageList:[{
-                                number: 10,
-                                clazz: ''
-                            }, {
-                                number: 25,
-                                clazz: ''
-                            }]
-        				},
-        				"order":{
-        					"mode":'local'
-        				},
-        				"remove":{
-        					"active":true,
-        					"mode":'local'
-        				},
-        				"save":{
-        					"active":true,
-        					"mode":'local'
-        				},
-        				"add":{
-        					"active":true,
-        					"showButton":true
-        				},
-        				"group":{
-        					"active":true,
-        				},
-        				"compact":true,
-        				"exportCSV":{
-        					active:true,//Active or not
-        					showButton:true,//Show the export button in the toolbar
-        					delimiter:";"//Set the delimiter
-        				},
-        				"hide":{
-        					"active":true,
-        					"byDefault":["about","name"]
-        				},
-                                        "mouseevents":{
-                                            "active": true,
-                                            "overCallback": function(line, data){
-                                                //console.log("callback mouseover:", line, data);
-                                            },
-                                            "leaveCallback": function(line, data){
-                                                //console.log("callback mouseover:", line, data);
-                                            },
-                                            "clickCallback": function(line,data){
-                                                //console.log("callback select : "+data.name);
-                                            }
-                                        }
-        			};
-        			
-        			var datatableData = [];
-        			datatableData = results.details;
-        			
-        			
-        			$rootScope.datatable = datatable(datatableConfig);
-        			$rootScope.datatable.setData(datatableData);
-            }
-            $('#subProjectTable').DataTable();
-        	$location.path('viewSubProject');
-        });
+    	
+    	var searchAttribute = {
+				quickSearchText: 'DR', 
+				pageIndex: 1,
+				sortByCol : 'accountName',
+				sortByDir : 'asc',
+				itemPerPage : 25,
+				requestPath: 'viewSubProject',
+				dataTableColumn: subProjectDataTablecolumns
+		};
+	    
+		$scope.viewDataFromServer(searchAttribute);
+		
+    };
+    
+    $scope.viewUProject = function () {  
+		var searchAttribute = {
+				quickSearchText: 'DR', 
+				pageIndex: 1,
+				sortByCol : 'accountName',
+				sortByDir : 'asc',
+				itemPerPage : 25,
+				requestPath: 'viewUmbrellaProject',
+				dataTableColumn: uProjectDataTablecolumns
+		};
+	    
+		$scope.viewDataFromServer(searchAttribute);
+    };
+    
+    $scope.viewProject = function () {  
+		var searchAttribute = {
+				quickSearchText: 'DR', 
+				pageIndex: 1,
+				sortByCol : 'accountName',
+				sortByDir : 'asc',
+				itemPerPage : 25,
+				requestPath: 'viewProject',
+				dataTableColumn: projectDataTablecolumns
+		};
+	    
+		$scope.viewDataFromServer(searchAttribute);
     };
 });

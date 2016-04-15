@@ -22,9 +22,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'resources/views/login.html',
 		controller : 'authCtrl',
 		role : '0'
-	}).when('/viewAccount', {
+	}).when('/viewData', {
 		title : 'Tool Ultimate',
-		templateUrl : 'resources/views/viewAccount.html',
+		templateUrl : 'resources/views/viewData.html',
 		controller : 'accountCtrl'
 	}).when('/addAccount', {
 		title : 'Tool Ultimate',
@@ -34,10 +34,6 @@ app.config([ '$routeProvider', function($routeProvider) {
 		title : 'Tool Ultimate',
 		templateUrl : 'resources/views/employeeform.html',
 		controller : 'employeeCtrl'
-	}).when('/viewSubProject',{
-		title : 'Tool Ultimate',
-		templateUrl : 'resources/views/viewSubProject.html',
-		controller : 'accountCtrl'
 	});
 }]).run(['$rootScope', '$location', 'Data',
 				function($rootScope, $location, Data) {

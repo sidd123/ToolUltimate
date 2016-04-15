@@ -1,5 +1,6 @@
 package com.tcs.toolultimate.service;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,16 +43,22 @@ public class AccountService {
 	 * This method is used to save or update account
 	 * 
 	 * @param account
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
 	 */
-	public void saveOrUpdateAccount(Account account) {
+	public Object saveOrUpdateDocument(String primaryColumn, Object entityObject) throws IllegalArgumentException, IllegalAccessException {
 		Query query = new Query();
-		query.addCriteria(Criteria.where(Constants.COLUMN_NAME_ACCOUNT_ID).is(account.getAccountId()));
 		Update update = new Update();
-		update.set(Constants.COLUMN_NAME_ACCOUNT_ID, account.getAccountId());
-		update.set(Constants.COLUMN_NAME_ACCOUNT_NAME, account.getAccountName());
-		update.set(Constants.COLUMN_NAME_ACCOUNT_CREATED_BY, account.getAccountCreatedBy());
-		update.set(Constants.COLUMN_NAME_ACCOUNT_CREATED_ON, account.getAccountCreatedOn());
-		mongoTemplate.upsert(query, update, Account.class);
+		Class<?> entityClass = entityObject.getClass();
+		for (Field field : entityClass.getDeclaredFields()) {
+			if(!field.isAccessible()){
+				field.setAccessible(Boolean.TRUE);
+			}			
+			update.set(field.getName(), field.get(entityObject));
+		}
+		mongoTemplate.upsert(query, update, entityClass);
+		Object saveOrUpdatedData = mongoTemplate.findOne(query, entityClass);
+		return saveOrUpdatedData;
 	}
 
 	/**
@@ -61,10 +68,10 @@ public class AccountService {
 	 * @param fieldValue
 	 * @return List of accounts
 	 */
-	public List<Account> fetchAcountsByField(String fieldName, String fieldValue) {
+	public <T>List<T> fetchDocumentsByField(String fieldName, String fieldValue, Class<T> entityClass) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where(fieldName).is(fieldValue));
-		List<Account> accounts = mongoTemplate.find(query, Account.class);
+		List<T> accounts = mongoTemplate.find(query, entityClass);
 		return accounts;
 	}
 

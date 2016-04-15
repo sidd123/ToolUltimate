@@ -52,4 +52,6 @@ public class Constants {
 	public static final String ORIGIN_VALUE_UMBRELLA_PROJ = "Umbrella Project";
 	public static final String ORIGIN_VALUE_PROJ = "Project";
 	public static final String ORIGIN_VALUE_SUB_PROJ = "Sub-Project";
+	public static final String DATEFORMAT_WITH_DATE_AND_TIME = "yyyy-MM-dd HH:mm:ss";
+	public static final String DATEFORMAT_WITH_ONLY_DATE = "yyyy-MM-dd";
 }

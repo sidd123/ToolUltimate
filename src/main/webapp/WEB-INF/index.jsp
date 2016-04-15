@@ -44,6 +44,8 @@
  	<script src="resources/js/fileSaver.min.js"></script>
  	<script src="resources/js/ultimate-datatable-3.2.2-SNAPSHOT.js"></script>
 	
+	<!-- /utility js files -->
+	<script src="resources/js/util.js"></script>
 	
 	<!-- /custom project js files -->
 	<script src="resources/js/app/app.js"></script>
