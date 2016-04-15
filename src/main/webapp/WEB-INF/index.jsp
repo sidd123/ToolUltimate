@@ -10,8 +10,8 @@
         <!-- /Bootstrap & CSS libs -->
         <link href="resources/css/bootstrap.min.css" rel="stylesheet">
         <link href="resources/css/extra/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="resources/css/custom1.css" rel="stylesheet">
-        <link href="resources/css/toaster1.css" rel="stylesheet">
+        <link href="resources/css/custom.css" rel="stylesheet">
+        <link href="resources/css/toaster.css" rel="stylesheet">
         <link href="resources/css/style.css" rel="stylesheet">
         <link href="resources/css/ultimate-datatable-3.2.1.css" rel="stylesheet" >
         
