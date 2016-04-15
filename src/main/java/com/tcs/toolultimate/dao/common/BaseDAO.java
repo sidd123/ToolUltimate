@@ -246,6 +246,12 @@ public class BaseDAO {
 					.append(Constants.COLUMN_NAME_ACCOUNT_ID);
 			project.put(Constants.COLUMN_NAME_ACCOUNT_ID,
 					projectonStr.toString());
+			
+			projectonStr = new StringBuffer("$")
+						.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS).append(".")
+						.append(Constants.COLUMN_NAME_UMBRELLA_PROJ_ID);
+			project.put(Constants.COLUMN_NAME_UMBRELLA_PROJ_ID,
+				projectonStr.toString());
 
 		} else if (Constants.LEVEL_VALUE_PROJECT.equals(level)) {
 
@@ -255,10 +261,17 @@ public class BaseDAO {
 					projectonStr.toString());
 			
 			projectonStr = new StringBuffer("$")
-						.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS).append(".")
-						.append(Constants.COLUMN_NAME_UMBRELLA_PROJ_ID);
+							.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS).append(".")
+							.append(Constants.COLUMN_NAME_UMBRELLA_PROJ_ID);
 			project.put(Constants.COLUMN_NAME_UMBRELLA_PROJ_ID,
 				projectonStr.toString());
+			
+			projectonStr = new StringBuffer("$")
+							.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS).append(".")
+							.append(Constants.COLUMN_NAME_PROJECTS).append(".")
+							.append(Constants.COLUMN_NAME_PROJ_ID);
+			project.put(Constants.COLUMN_NAME_PROJ_ID,
+					projectonStr.toString());
 
 		} else if (Constants.LEVEL_VALUE_SUB_PROJECT.equals(level)) {
 			projectonStr = new StringBuffer("$")
@@ -277,6 +290,14 @@ public class BaseDAO {
 					.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS).append(".")
 					.append(Constants.COLUMN_NAME_PROJECTS).append(".")
 					.append(Constants.COLUMN_NAME_PROJ_ID);
+			project.put(Constants.COLUMN_NAME_PROJ_ID,
+					projectonStr.toString());
+			
+			projectonStr = new StringBuffer("$")
+							.append(Constants.COLUMN_NAME_UMBRELLA_PROJECTS).append(".")
+							.append(Constants.COLUMN_NAME_PROJECTS).append(".")
+							.append(Constants.COLUMN_NAME_SUBPROJECTS).append(".")
+							.append(Constants.COLUMN_NAME_SUB_PROJ_ID);
 			project.put(Constants.COLUMN_NAME_PROJ_ID,
 					projectonStr.toString());
 		}
